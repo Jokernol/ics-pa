@@ -15,8 +15,8 @@ BINARY ?= $(BUILD_DIR)/$(ISA)-qemu-so
 .DEFAULT_GOAL = app
 
 # Compilation flags
-CC = gcc
-LD = gcc
+CC = gcc-9
+LD = gcc-9
 INCLUDES  = $(addprefix -I, $(INC_DIR))
 CFLAGS   += -O2 -fPIC -MMD -Wall -Werror -DNEMU_HOME=$(NEMU_HOME) $(INCLUDES) \
             -D_ISA_H_=\"isa/$(ISA).h\"
