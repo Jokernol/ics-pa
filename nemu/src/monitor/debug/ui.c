@@ -97,7 +97,7 @@ static int cmd_x(char *args) {
   uint8_t len;
 
   for (i = 0, len = atoi(arg1); i < len; i ++) {
-    printf("%#x %#x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
+    printf("%#x %#8x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
   }
 
   printf("\n");
