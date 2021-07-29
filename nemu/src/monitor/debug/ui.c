@@ -32,10 +32,15 @@ static int cmd_c(char *args) {
   return 0;
 }
 
-
 static int cmd_q(char *args) {
   return -1;
 }
+
+static int cmd_x(char *args);
+
+static int cmd_si(char *args);
+
+static int cmd_info(char *args);
 
 static int cmd_help(char *args);
 
@@ -47,7 +52,9 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "x", "Examine memory", cmd_x },
+  { "si", "Execute N instructions in a single step", cmd_si },
+  { "info", "print registers informations", cmd_info },
   /* TODO: Add more commands */
 
 };
@@ -74,6 +81,35 @@ static int cmd_help(char *args) {
     }
     printf("Unknown command '%s'\n", arg);
   }
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  return 0;
+}
+
+static int cmd_si(char *args) {
+  char *arg = strtok(NULL, " ");
+  uint64_t n = arg ? atoi(arg) : 0;
+
+  if (n != 0) {
+    cpu_exec(n);
+  } else {
+    printf("Unknown command format of 'si'\n");
+  }
+
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  char *arg = strtok(NULL, " ");
+
+  if (strcmp(arg, "r") == 0) {
+    isa_reg_display();
+  } else {
+    printf("Unknown command format of 'info'\n");
+  }
+
   return 0;
 }
 
