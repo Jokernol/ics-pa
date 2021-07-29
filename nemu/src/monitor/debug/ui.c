@@ -93,7 +93,8 @@ static int cmd_x(char *args) {
   uint8_t len;
 
   for (i = 0, len = atoi(arg1); i < len; i ++) {
-    printf("%d ", paddr_read(atoi(arg2), 4));
+    //printf("%d ", paddr_read(atoi(arg2), 4));
+    puts(arg2);
   }
 
   puts("");
