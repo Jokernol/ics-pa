@@ -90,7 +90,7 @@ static int cmd_x(char *args) {
 
 static int cmd_si(char *args) {
   char *arg = strtok(NULL, " ");
-  uint64_t n = arg ? atoi(arg) : 0;
+  uint64_t n = arg ? atoi(arg) : 1;
 
   if (n != 0) {
     cpu_exec(n);
