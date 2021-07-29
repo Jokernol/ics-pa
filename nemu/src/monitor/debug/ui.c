@@ -89,11 +89,15 @@ static int cmd_x(char *args) {
   char *arg1 = strtok(NULL, " ");
   char *arg2 = strtok(NULL, " ");
 
+  paddr_t addr;
+
+  sscanf(arg2, "%x", &addr);
+  
   uint8_t i;
   uint8_t len;
 
   for (i = 0, len = atoi(arg1); i < len; i ++) {
-    printf("%lx %ld", strtol(arg2, NULL, 16), sizeof(int));
+    printf("%x", addr);
   }
 
   printf("\n");
