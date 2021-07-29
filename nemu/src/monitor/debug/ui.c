@@ -3,6 +3,7 @@
 #include "watchpoint.h"
 
 #include <stdlib.h>
+#include <memory/paddr.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -85,6 +86,18 @@ static int cmd_help(char *args) {
 }
 
 static int cmd_x(char *args) {
+  char *arg1 = strtok(NULL, " ");
+  char *arg2 = strtok(NULL, " ");
+
+  uint8_t i;
+  uint8_t len;
+
+  for (i = 0, len = atoi(arg1); i < len; i ++) {
+    printf("%d ", paddr_read(atoi(arg2), 4));
+  }
+
+  puts("");
+
   return 0;
 }
 
