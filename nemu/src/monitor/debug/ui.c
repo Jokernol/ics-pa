@@ -93,7 +93,7 @@ static int cmd_x(char *args) {
   uint8_t len;
 
   for (i = 0, len = atoi(arg1); i < len; i ++) {
-    printf("%d ", atoi(arg2));
+    printf("%ld ", strtol(arg2, NULL, 16));
   }
 
   printf("\n");
