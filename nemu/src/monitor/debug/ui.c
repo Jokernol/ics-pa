@@ -86,10 +86,10 @@ static int cmd_help(char *args) {
 }
 
 static int cmd_x(char *args) {
-  printf("%s", args);
-  //char *arg1 = strtok(NULL, " ");
+  char *arg1 = strtok(NULL, " ");
   //char *arg2 = __strtok_r(NULL, " ");
-
+  printf("%s\n", args);
+  printf("%s\n", arg1);
   //paddr_t addr;
   //bool success;
 
