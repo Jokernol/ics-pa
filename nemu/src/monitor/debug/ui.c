@@ -37,54 +37,6 @@ static int cmd_q(char *args) {
   return -1;
 }
 
-static int cmd_x(char *args);
-
-static int cmd_si(char *args);
-
-static int cmd_info(char *args);
-
-static int cmd_help(char *args);
-
-static struct {
-  char *name;
-  char *description;
-  int (*handler) (char *);
-} cmd_table [] = {
-  { "help", "Display informations about all supported commands", cmd_help },
-  { "c", "Continue the execution of the program", cmd_c },
-  { "q", "Exit NEMU", cmd_q },
-  { "x", "Examine memory", cmd_x },
-  { "si", "Execute N instructions in a single step", cmd_si },
-  { "info", "print registers informations", cmd_info },
-  /* TODO: Add more commands */
-
-};
-
-#define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
-
-static int cmd_help(char *args) {
-  /* extract the first argument */
-  char *arg = strtok(NULL, " ");
-  int i;
-
-  if (arg == NULL) {
-    /* no argument given */
-    for (i = 0; i < NR_CMD; i ++) {
-      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
-    }
-  }
-  else {
-    for (i = 0; i < NR_CMD; i ++) {
-      if (strcmp(arg, cmd_table[i].name) == 0) {
-        printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
-        return 0;
-      }
-    }
-    printf("Unknown command '%s'\n", arg);
-  }
-  return 0;
-}
-
 static int cmd_x(char *args) {
   char *arg1 = strtok(NULL, " ");
   char *arg2 = args + strlen(args) + 1;
@@ -129,6 +81,48 @@ static int cmd_info(char *args) {
     printf("Unknown command format of 'info'\n");
   }
 
+  return 0;
+}
+
+static int cmd_help(char *args);
+
+static struct {
+  char *name;
+  char *description;
+  int (*handler) (char *);
+} cmd_table [] = {
+  { "help", "Display informations about all supported commands", cmd_help },
+  { "c", "Continue the execution of the program", cmd_c },
+  { "q", "Exit NEMU", cmd_q },
+  { "x", "Examine memory", cmd_x },
+  { "si", "Execute N instructions in a single step", cmd_si },
+  { "info", "print registers informations", cmd_info },
+  /* TODO: Add more commands */
+
+};
+
+#define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+
+static int cmd_help(char *args) {
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  int i;
+
+  if (arg == NULL) {
+    /* no argument given */
+    for (i = 0; i < NR_CMD; i ++) {
+      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+    }
+  }
+  else {
+    for (i = 0; i < NR_CMD; i ++) {
+      if (strcmp(arg, cmd_table[i].name) == 0) {
+        printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+        return 0;
+      }
+    }
+    printf("Unknown command '%s'\n", arg);
+  }
   return 0;
 }
 
