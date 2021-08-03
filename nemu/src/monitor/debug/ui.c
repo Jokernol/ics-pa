@@ -87,13 +87,13 @@ static int cmd_help(char *args) {
 
 static int cmd_x(char *args) {
   char *arg1 = strtok(NULL, " ");
-  char *arg2 = strtok(NULL, " ");
+  //char *arg2 = strtok(NULL, " ");
 
-  paddr_t addr;
+  //paddr_t addr;
   bool success;
 
-  expr(arg2, &success);
-  
+  expr(arg1, &success);
+  /**
   sscanf(arg2, "%x", &addr);
   
   uint8_t i;
@@ -102,7 +102,7 @@ static int cmd_x(char *args) {
   for (i = 0, len = atoi(arg1); i < len; i ++) {
     printf("%#x 0x%08x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
   }
-
+  */
   return 0;
 }
 
