@@ -90,12 +90,15 @@ static int cmd_x(char *args) {
   char *arg2 = strtok(NULL, " ");
 
   paddr_t addr;
+  bool success;
 
+  expr(arg2, &success);
+  
   sscanf(arg2, "%x", &addr);
   
   uint8_t i;
   uint8_t len;
-  assert(arg1 != NULL);
+  
   for (i = 0, len = atoi(arg1); i < len; i ++) {
     printf("%#x 0x%08x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
   }

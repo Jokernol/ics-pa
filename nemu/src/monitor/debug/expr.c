@@ -6,8 +6,15 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
-
+  TK_NOTYPE = 256,
+  TK_EQ,
+  TK_OR,
+  TK_AND,
+  TK_NOT,
+  TK_NUM,
+  TK_NOTEQ,
+  TK_HEXNUM,
+  TK_REGISTER
   /* TODO: Add more token types */
 
 };
@@ -25,7 +32,8 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"-", '-'},           // minus
   {"\\*", '*'},         // mult
-  {"/", '/'},           // slash
+  {"/", '/'},           // divide
+  {"\b\\d+\b", TK_NUM},
   {"==", TK_EQ},        // equal
 };
 
@@ -83,7 +91,16 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+          case TK_NOTYPE: 
+            break;
+          case TK_REGISTER:
+          default:
+            tokens[i].type = rules[i].token_type;
+            strncpy(tokens[i].str, substr_start, substr_len);
+            
+            nr_token++;
+            
+            break;
         }
 
         break;
@@ -107,7 +124,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  //TODO();
 
   return 0;
 }
