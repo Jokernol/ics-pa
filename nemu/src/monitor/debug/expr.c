@@ -1,4 +1,5 @@
 #include <isa.h>
+#include <stdlib.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -122,6 +123,45 @@ static bool make_token(char *e) {
   }
 
   return true;
+}
+
+bool check_parentheses(Token *tokens, uint32_t left, uint32_t right) {
+  uint8_t stack[right - left + 1];
+  memset(stack, 0, sizeof(stack));
+
+  return 0;
+}
+
+word_t eval(Token *tokens, uint32_t left, uint32_t right) {
+  if (left > right) {
+    /* Bad expression */
+    return 0;
+  }else if (left == right) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+    return atoi(tokens[left].str);
+  }else if (check_parentheses(tokens, left, right) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(tokens, left + 1, right - 1);
+  }else {
+    //op = the position of 主运算符 in the token expression;
+    uint32_t op_type = 0;
+    uint32_t op = 0;
+    uint32_t val1 = eval(tokens, left, op - 1);
+    uint32_t val2 = eval(tokens, op + 1, right);
+
+    switch (op_type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: assert(0);
+    }
+  }
 }
 
 
