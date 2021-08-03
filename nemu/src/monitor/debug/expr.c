@@ -33,6 +33,12 @@ static struct rule {
   {"-", '-'},           // minus
   {"\\*", '*'},         // mult
   {"/", '/'},           // divide
+  {"\\|\\|", TK_OR},
+  {"\\&\\&", TK_AND},
+  {"!", TK_NOT},
+  {"!=", TK_NOTEQ},
+  {"", TK_HEXNUM},
+  {"\\b$\\w+\\b", TK_REGISTER},
   {"\\b[0-9]+\\b", TK_NUM},
   {"==", TK_EQ},        // equal
 };
