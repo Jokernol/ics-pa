@@ -86,15 +86,14 @@ static int cmd_help(char *args) {
 }
 
 static int cmd_x(char *args) {
-  printf("%s\n", args);
   char *arg1 = strtok(NULL, " ");
   char *arg2 = args + strlen(args) + 1;
+  
   printf("%s\n", arg1);
-  printf("%s\n", arg2);
   //paddr_t addr;
-  //bool success;
+  bool success;
 
-  //expr(arg2, &success);
+  expr(arg2, &success);
   /**
   sscanf(arg2, "%x", &addr);
   
