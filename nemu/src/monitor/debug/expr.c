@@ -33,7 +33,7 @@ static struct rule {
   {"-", '-'},           // minus
   {"\\*", '*'},         // mult
   {"/", '/'},           // divide
-  {"/d+", TK_NUM},
+  {"\\d+", TK_NUM},
   {"==", TK_EQ},        // equal
 };
 
