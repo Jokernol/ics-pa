@@ -87,7 +87,7 @@ static int cmd_help(char *args) {
 
 static int cmd_x(char *args) {
   printf("%s\n", args);
-  char *arg1 = strtok(NULL, " ");
+  char *arg1 = strtok(args, " ");
   char *arg2 = strtok(NULL, " ");
   printf("%s\n", arg1);
   printf("%s\n", arg2);
