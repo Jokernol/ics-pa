@@ -101,8 +101,8 @@ static bool make_token(char *e) {
             break;
           case TK_REGISTER:
           default:
-            tokens[i].type = rules[i].token_type;
-            strncpy(tokens[i].str, substr_start, substr_len);
+            tokens[nr_token].type = rules[i].token_type;
+            strncpy(tokens[nr_token].str, substr_start, substr_len);
             
             nr_token++;
             
@@ -129,6 +129,9 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 
+  for (uint8_t i = 0; i < nr_token; i ++) {
+    printf("%d %s\n", tokens[i].type, tokens[i].str);
+  }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 
