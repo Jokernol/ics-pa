@@ -37,7 +37,7 @@ static struct rule {
   {"\\&\\&", TK_AND},
   {"!", TK_NOT},
   {"!=", TK_NOTEQ},
-  {"", TK_HEXNUM},
+  {"\\b0x[0-9]+\\b", TK_HEXNUM},
   {"\\b$\\w+\\b", TK_REGISTER},
   {"\\b[0-9]+\\b", TK_NUM},
   {"==", TK_EQ},        // equal
