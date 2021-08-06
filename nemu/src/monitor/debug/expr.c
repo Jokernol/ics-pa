@@ -190,7 +190,7 @@ void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success,
 }
 
 word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
-  if (left > right) {
+  if (left > right || *success == false) {
     /* Bad expression */
     return 0;
   }else if (left == right) {
@@ -206,8 +206,11 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
     return eval(tokens, left + 1, right - 1, success);
   }else {
     //op = the position of 主运算符 in the token expression;
-    uint32_t op_type = 0;
-    uint32_t op = 0;
+    uint8_t op_type;
+    uint32_t op;
+
+    search_main_op(tokens, left, right, success, &op, &op_type);
+
     uint32_t val1 = eval(tokens, left, op - 1, success);
     uint32_t val2 = eval(tokens, op + 1, right, success);
 
