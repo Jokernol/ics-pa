@@ -41,13 +41,11 @@ static int cmd_x(char *args) {
   char *arg1 = strtok(NULL, " ");
   char *arg2 = args + strlen(args) + 1;
   
-  printf("%s\n", arg1);
-  //paddr_t addr;
   bool success = true;
 
-  expr(arg2, &success);
-  /**
-  sscanf(arg2, "%x", &addr);
+  paddr_t addr = expr(arg2, &success);
+
+  //sscanf(arg2, "%x", &addr);
   
   uint8_t i;
   uint8_t len;
@@ -55,7 +53,7 @@ static int cmd_x(char *args) {
   for (i = 0, len = atoi(arg1); i < len; i ++) {
     printf("%#x 0x%08x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
   }
-  */
+
   return 0;
 }
 
