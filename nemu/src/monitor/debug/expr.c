@@ -177,9 +177,7 @@ void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success,
       if (!*op_type || (tokens[i].type == '+' || tokens[i].type == '-')) {
         *op = i;
         *op_type = tokens[i].type;
-      }
-      
-      if ((*op_type == '*' || *op_type == '/') && (tokens[i].type == '*' || tokens[i].type == '/')) {
+      } else if ((*op_type == '*' || *op_type == '/') && (tokens[i].type == '*' || tokens[i].type == '/')) {
         *op = i;
         *op_type = tokens[i].type;
       }
