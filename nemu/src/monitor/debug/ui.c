@@ -43,7 +43,7 @@ static int cmd_x(char *args) {
   
   printf("%s\n", arg1);
   //paddr_t addr;
-  bool success;
+  bool success = true;
 
   expr(arg2, &success);
   /**
