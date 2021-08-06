@@ -128,6 +128,7 @@ static bool make_token(char *e) {
 bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *success) {
   int8_t n;
   uint8_t i;
+
   bool flag = true;
 
   for (i = left, n = 0; i <= right; i ++) {
@@ -152,6 +153,40 @@ bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *succe
   }
 
   return (n == 0 && tokens[0].type == '(' && tokens[nr_token - 1].type == ')' && flag) ? true : false;
+}
+
+void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success, uint32_t *op, uint8_t *op_type) {
+  uint8_t i;
+  bool flag = true;
+
+  for (i = left; i <= right; i ++) {
+    if (tokens[i].type == '(') {
+      flag = false;
+    } else if (tokens[i].type == ')') {
+      flag = true;
+    }
+
+    if (flag && (tokens[i].type == '+' || tokens[i].type == '-' || tokens[i].type == '*' || tokens[i].type == '/')) {
+      if (!*op_type) {
+        *op = i;
+        *op_type = tokens[i].type;
+      }
+      
+      if ((*op_type == '*' || *op_type == '/') && (tokens[i].type == '*' || tokens[i].type == '/')) {
+        *op = i;
+        *op_type = tokens[i].type;
+      }
+
+      if (tokens[i].type == '+' || tokens[i].type == '-') {
+        *op = i;
+        *op_type = tokens[i].type;
+      }
+    }
+  }
+
+  if (!op && !op_type) {
+    *success = false;
+  }
 }
 
 word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
@@ -203,6 +238,13 @@ word_t expr(char *e, bool *success) {
 
   printf("ans = %d\n", ans);
   printf("success = %d\n", *success);
+
+  uint8_t op_type;
+  uint32_t op;
+
+  search_main_op(tokens, 0, nr_token - 1, success, &op, &op_type);
+
+  printf("%d %d\n", op_type, op);
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 
