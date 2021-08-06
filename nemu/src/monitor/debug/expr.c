@@ -126,7 +126,7 @@ static bool make_token(char *e) {
 }
 
 bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *success) {
-  uint8_t n;
+  int8_t n;
   uint8_t i;
   bool flag = true;
 
