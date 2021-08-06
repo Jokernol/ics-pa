@@ -242,14 +242,14 @@ word_t expr(char *e, bool *success) {
 
   bool ans;
 
-  ans = check_parentheses(tokens, 2, 4, success);
+  ans = check_parentheses(tokens, 0, nr_token - 1, success);
 
   printf("ans = %d\n", ans);
   printf("success = %d\n", *success);
 
-  //uint32_t res = eval(tokens, 0, nr_token - 1, success);
+  uint32_t res = eval(tokens, 0, nr_token - 1, success);
 
-  //printf("%d\n", res);
+  printf("%d\n", res);
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 
