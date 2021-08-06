@@ -206,8 +206,8 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
     return eval(tokens, left + 1, right - 1, success);
   }else {
     //op = the position of 主运算符 in the token expression;
-    uint8_t op_type;
-    uint32_t op;
+    uint8_t op_type = 0;
+    uint32_t op = 0;
 
     search_main_op(tokens, left, right, success, &op, &op_type);
 
