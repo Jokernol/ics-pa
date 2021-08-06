@@ -130,6 +130,7 @@ bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *succe
   uint8_t i;
 
   bool flag = true;
+  bool ans;
 
   for (i = left, n = 0; i <= right; i ++) {
     if (i != left && n == 0) {
@@ -152,7 +153,13 @@ bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *succe
     *success = false;
   }
 
-  return (n == 0 && tokens[0].type == '(' && tokens[nr_token - 1].type == ')' && flag) ? true : false;
+  if (n == 0 && tokens[0].type == '(' && tokens[nr_token - 1].type == ')' && flag) {
+    ans = true;
+  } else {
+    ans = false;
+  }
+
+  return ans;
 }
 
 void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success, uint32_t *op, uint8_t *op_type) {
@@ -167,17 +174,12 @@ void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success,
     }
 
     if (flag && (tokens[i].type == '+' || tokens[i].type == '-' || tokens[i].type == '*' || tokens[i].type == '/')) {
-      if (!*op_type) {
+      if (!*op_type || (tokens[i].type == '+' || tokens[i].type == '-')) {
         *op = i;
         *op_type = tokens[i].type;
       }
       
       if ((*op_type == '*' || *op_type == '/') && (tokens[i].type == '*' || tokens[i].type == '/')) {
-        *op = i;
-        *op_type = tokens[i].type;
-      }
-
-      if (tokens[i].type == '+' || tokens[i].type == '-') {
         *op = i;
         *op_type = tokens[i].type;
       }
