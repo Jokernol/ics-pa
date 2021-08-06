@@ -198,7 +198,15 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
      * For now this token should be a number.
      * Return the value of the number.
      */
-    return (uint32_t) atoi(tokens[left].str);
+    uint32_t num; 
+
+    if (tokens[left].type == TK_NUM) {
+      sscanf(tokens[left].str, "%u", &num);
+    } else if (tokens[left].type == TK_HEXNUM) {
+      sscanf(tokens[left].str, "%x", &num);
+    }
+
+    return num;
   }else if (check_parentheses(tokens, left, right, success) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
@@ -237,7 +245,7 @@ word_t expr(char *e, bool *success) {
 
   uint32_t res = eval(tokens, 0, nr_token - 1, success);
 
-  printf("%ud\n", res);
+  printf("%u\n", res);
 
   return res;
 }
