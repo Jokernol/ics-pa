@@ -153,7 +153,7 @@ bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *succe
     *success = false;
   }
 
-  if (n == 0 && tokens[0].type == '(' && tokens[nr_token - 1].type == ')' && flag) {
+  if (n == 0 && tokens[left].type == '(' && tokens[right].type == ')' && flag) {
     ans = true;
   } else {
     ans = false;
