@@ -237,9 +237,7 @@ word_t expr(char *e, bool *success) {
 
   uint32_t res = eval(tokens, 0, nr_token - 1, success);
 
-  printf("%d\n", res);
-  /* TODO: Insert codes to evaluate the expression. */
-  //TODO();
+  printf("%ud\n", res);
 
   return res;
 }
