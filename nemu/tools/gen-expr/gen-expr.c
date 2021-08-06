@@ -8,21 +8,44 @@
 // this should be enough
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
-static char *code_format =
-"#include <stdio.h>\n"
-"int main() { "
-"  unsigned result = %s; "
-"  printf(\"%%u\", result); "
-"  return 0; "
-"}";
+//static char *code_format =
+//"#include <stdio.h>\n"
+//"int main() { "
+//"  unsigned result = %s; "
+//"  printf(\"%%u\", result); "
+//"  return 0; "
+//"}";
 
-static inline void gen_rand_expr() {
-  buf[0] = '\0';
+static char* p = buf;
+
+static uint8_t choose(uint8_t n) {
+  return rand() % n;
 }
+
+//static void gen_num() {
+//  char *str;
+//  
+//  sprintf(str, "%u", rand());
+//
+//  uint32_t len = strlen(str);
+//
+//  strncpy(buf, str, len);
+//
+//  buf[len] = '\0';
+//}
+
+//static inline void gen_rand_expr() {
+//  switch (choose(3)) {
+//    case 0: gen_num(); break;
+//    case 1: gen('('); gen_rand_expr(); gen(')'); break;
+//    default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+//  }
+//}
 
 int main(int argc, char *argv[]) {
   int seed = time(0);
   srand(seed);
+  /*
   int loop = 1;
   if (argc > 1) {
     sscanf(argv[1], "%d", &loop);
@@ -50,5 +73,19 @@ int main(int argc, char *argv[]) {
 
     printf("%u %s\n", result, buf);
   }
+  */
+  char *str;
+  
+  sprintf(str, "%u", rand());
+
+  //uint32_t len = strlen(str);
+
+  printf("%s", str);
+  //strncpy(buf, str, len);
+
+  //buf[len] = '\0';
+  
+  //printf("%d\n", choose(3));
+  //printf("%s\n", buf);
   return 0;
 }
