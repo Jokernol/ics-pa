@@ -198,7 +198,6 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
      * For now this token should be a number.
      * Return the value of the number.
      */
-    printf("%s\n", tokens[left].str);
     return (uint32_t) atoi(tokens[left].str);
   }else if (check_parentheses(tokens, left, right, success) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
@@ -212,12 +211,8 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
 
     search_main_op(tokens, left, right, success, &op, &op_type);
 
-    printf("%c %d\n", op_type, op);
-
     uint32_t val1 = eval(tokens, left, op - 1, success);
     uint32_t val2 = eval(tokens, op + 1, right, success);
-
-    printf("%d, %d\n", val1, val2);
 
     switch (op_type) {
       case '+': return val1 + val2;
