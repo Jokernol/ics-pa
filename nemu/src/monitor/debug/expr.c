@@ -235,25 +235,23 @@ word_t expr(char *e, bool *success) {
     printf("%d %s\n", tokens[i].type, tokens[i].str);
   }
 
-  uint32_t ans = eval(tokens, 0, nr_token - 1, success);
+  bool ans;
 
-  printf("%d\n", ans);
+  ans = check_parentheses(tokens, 0, nr_token - 1, success);
 
-  
-//
-  //bool ans;
-//
-  //ans = check_parentheses(tokens, 0, nr_token - 1, success);
-//
-  //printf("ans = %d\n", ans);
-  //printf("success = %d\n", *success);
-//
-  //uint8_t op_type;
-  //uint32_t op;
-//
-  //search_main_op(tokens, 0, nr_token - 1, success, &op, &op_type);
-//
-  //printf("%c %d\n", op_type, op);
+  printf("ans = %d\n", ans);
+  printf("success = %d\n", *success);
+
+  uint8_t op_type;
+  uint32_t op;
+
+  search_main_op(tokens, 0, nr_token - 1, success, &op, &op_type);
+
+  printf("%c %d\n", op_type, op);
+
+  uint32_t res = eval(tokens, 0, nr_token - 1, success);
+
+  printf("%d\n", res);
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 
