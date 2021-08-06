@@ -244,7 +244,7 @@ word_t expr(char *e, bool *success) {
 
   search_main_op(tokens, 0, nr_token - 1, success, &op, &op_type);
 
-  printf("%d %d\n", op_type, op);
+  printf("%c %d\n", op_type, op);
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 
