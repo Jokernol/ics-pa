@@ -211,6 +211,8 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
 
     search_main_op(tokens, left, right, success, &op, &op_type);
 
+    printf("%c %d\n", op_type, op);
+
     uint32_t val1 = eval(tokens, left, op - 1, success);
     uint32_t val2 = eval(tokens, op + 1, right, success);
 
