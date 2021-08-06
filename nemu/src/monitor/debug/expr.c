@@ -216,7 +216,7 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
     uint32_t val1 = eval(tokens, left, op - 1, success);
     uint32_t val2 = eval(tokens, op + 1, right, success);
 
-    printf("%d, %d", val1, val2);
+    printf("%d, %d\n", val1, val2);
 
     switch (op_type) {
       case '+': return val1 + val2;
