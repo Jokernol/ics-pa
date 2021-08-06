@@ -235,9 +235,9 @@ word_t expr(char *e, bool *success) {
     printf("%d %s\n", tokens[i].type, tokens[i].str);
   }
 
-  //uint32_t ans = eval(tokens, 0, nr_token - 1, success);
+  uint32_t ans = eval(tokens, 0, nr_token - 1, success);
 
-  //printf("%d\n", ans);
+  printf("%d\n", ans);
 
   
 //
