@@ -213,10 +213,6 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
 
     printf("%c %d\n", op_type, op);
 
-    for (uint8_t i = 0; i < nr_token; i ++) {
-      printf("%d %s\n", tokens[i].type, tokens[i].str);
-    }
-
     uint32_t val1 = eval(tokens, left, op - 1, success);
     uint32_t val2 = eval(tokens, op + 1, right, success);
 
