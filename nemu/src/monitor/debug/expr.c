@@ -125,14 +125,36 @@ static bool make_token(char *e) {
   return true;
 }
 
-bool check_parentheses(Token *tokens, uint32_t left, uint32_t right) {
-  uint8_t stack[right - left + 1];
-  memset(stack, 0, sizeof(stack));
+bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *success) {
+  uint8_t n;
+  uint8_t i;
+  bool flag = true;
 
-  return 0;
+  for (i = left, n = 0; i <= right; i ++) {
+    if (i != left && n == 0) {
+      flag = false;
+    }
+
+    if (tokens[i].type == '(') {
+      n ++;
+    } else if (tokens[i].type == ')') {
+      n --;
+    }
+    
+    if (n < 0) {
+      *success = false;
+      break;
+    }
+  }
+
+  if (n != 0) {
+    *success = false;
+  }
+
+  return (n == 0 && tokens[0].type == '(' && tokens[nr_token - 1].type == ')' && flag) ? true : false;
 }
 
-word_t eval(Token *tokens, uint32_t left, uint32_t right) {
+word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
   if (left > right) {
     /* Bad expression */
     return 0;
@@ -142,17 +164,17 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right) {
      * Return the value of the number.
      */
     return atoi(tokens[left].str);
-  }else if (check_parentheses(tokens, left, right) == true) {
+  }else if (check_parentheses(tokens, left, right, success) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    return eval(tokens, left + 1, right - 1);
+    return eval(tokens, left + 1, right - 1, success);
   }else {
     //op = the position of 主运算符 in the token expression;
     uint32_t op_type = 0;
     uint32_t op = 0;
-    uint32_t val1 = eval(tokens, left, op - 1);
-    uint32_t val2 = eval(tokens, op + 1, right);
+    uint32_t val1 = eval(tokens, left, op - 1, success);
+    uint32_t val2 = eval(tokens, op + 1, right, success);
 
     switch (op_type) {
       case '+': return val1 + val2;
@@ -174,6 +196,13 @@ word_t expr(char *e, bool *success) {
   for (uint8_t i = 0; i < nr_token; i ++) {
     printf("%d %s\n", tokens[i].type, tokens[i].str);
   }
+
+  bool ans;
+
+  ans = check_parentheses(tokens, 0, nr_token - 1, success);
+
+  printf("ans = %d\n", ans);
+  printf("ans = %d\n", *success);
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 
