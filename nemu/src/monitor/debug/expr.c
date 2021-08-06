@@ -246,13 +246,6 @@ word_t expr(char *e, bool *success) {
   printf("ans = %d\n", ans);
   printf("success = %d\n", *success);
 
-  uint8_t op_type;
-  uint32_t op;
-
-  search_main_op(tokens, 0, nr_token - 1, success, &op, &op_type);
-
-  printf("%c %d\n", op_type, op);
-
   uint32_t res = eval(tokens, 0, nr_token - 1, success);
 
   printf("%d\n", res);
