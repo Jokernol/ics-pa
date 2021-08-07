@@ -163,8 +163,46 @@
 //  }
 //}
 
-void ui_mainloop() {
-  bool success = true;
-  word_t ans = expr("1+1", &success);
-  printf("%d", ans);
+static int file_gets() {
+  FILE* fp = fopen("/home/jokernol/Anything/ics-pa/nemu/tools/gen-expr/input", "r");
+  char str[256] = {};
+
+  if(fp == NULL) {
+    perror("");
+    return -1;
+  }
+  
+  while(fgets(str, 256, fp) != NULL) {
+    char *ans = strtok(str, " ");
+    char *exp = ans + strlen(ans) + 1;
+    
+    exp[strlen(exp) - 1] = '\0';
+
+    printf("%ld %s %s\n", strlen(exp), ans, exp);
+
+    bool success = true;
+    word_t res = expr(exp, &success);
+
+    printf("%d", res);
+    //if (expr(exp, &success) == atoi(ans)) {
+    //  printf("%s %s %s\n", ans, exp, "True");
+    //} else {
+    //  printf("%s %s %s\n", ans, exp, "False");
+    //}
+
+    //memset(str, '\0', sizeof(str));
+  }
+
+  fclose(fp);
+
+  return 0;
 }
+
+
+void ui_mainloop() {
+  //bool success = true;
+  //word_t ans = expr("1+1", &success);
+  //printf("%d", ans);
+  file_gets();
+}
+
