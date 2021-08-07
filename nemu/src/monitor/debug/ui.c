@@ -29,7 +29,7 @@ static char* rl_gets() {
 }
 
 static void file_gets() {
-  FILE* fp = fopen("$NEMU/tools/gen-expr/input", "r");
+  FILE* fp = fopen("$NEMU_HOME/tools/gen-expr/input", "r");
   char str[256] = {'\0'};
 
   while(fgets(str, 256, fp) != NULL) {
