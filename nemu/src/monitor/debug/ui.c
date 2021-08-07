@@ -29,7 +29,7 @@ static char* rl_gets() {
 }
 
 static int file_gets() {
-  FILE* fp = fopen("/home/jokernol/ics2020/nemu/tools/gen-expr/input", "r");
+  FILE* fp = fopen("input", "r");
   char str[256] = {'\0'};
 
   if(fp == NULL) {
