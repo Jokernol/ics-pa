@@ -187,7 +187,7 @@ static int file_gets() {
     if (expr(exp, &success) == atoi(ans)) {
       printf("%s %s %s\n", ans, exp, "True");
     } else {
-      printf("%s %s %s\n", ans, exp, "False");
+      printf("%s %s \33[1;41m\33[1;33m%s\33[0m\n", ans, exp, "False");
     }
 
     memset(str, '\0', sizeof(str));
