@@ -28,32 +28,13 @@ static char* rl_gets() {
   return line_read;
 }
 
-static int file_gets() {
-  FILE* fp = fopen("/home/jokernol/Anything/ics-pa/nemu/tools/gen-expr/input", "r");
-  char str[256] = {'\0'};
-
-  if(fp == NULL) {
-    perror("");
-    return -1;
-  }
-
-  while(fgets(str, 256, fp) != NULL) {
-    puts(str);
-  }
-
-  fclose(fp);
-
-  return 0;
-}
-
 static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;
 }
 
 static int cmd_q(char *args) {
-  file_gets();
-  return 0;
+  return -1;
 }
 
 static int cmd_x(char *args) {
