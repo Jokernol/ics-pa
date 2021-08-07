@@ -23,7 +23,7 @@ static int file_gets() {
     puts(ans);
     puts(exp);
     bool success = true;
-
+    printf("%d", expr(exp, &success));
     if (expr(exp, &success) == atoi(ans)) {
       printf("%s %s %s\n", ans, exp, "True");
     } else {
