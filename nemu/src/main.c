@@ -26,10 +26,10 @@ static int file_gets() {
     printf("%ld %s %s\n", strlen(exp), ans, exp);
 
     memset(str, '\0', sizeof(str));
-    //bool success = true;
-    //word_t res = expr(exp, &success);
+    bool success = true;
+    word_t res = expr(exp, &success);
 
-    //printf("%d", res);
+    printf("%d", res);
     //if (expr(exp, &success) == atoi(ans)) {
     //  printf("%s %s %s\n", ans, exp, "True");
     //} else {
