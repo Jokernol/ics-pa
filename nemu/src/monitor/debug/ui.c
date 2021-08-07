@@ -184,9 +184,13 @@ static int file_gets() {
     //word_t res = expr(exp, &success);
 //
     //printf("%d", res);
-    if (expr(exp, &success) == atoi(ans)) {
-      printf("%s %s %s\n", ans, exp, "True");
-    } else {
+    //if (expr(exp, &success) == atoi(ans)) {
+    //  printf("%s %s %s\n", ans, exp, "True");
+    //} else {
+    //  printf("%s %s \33[1;41m\33[1;33m%s\33[0m\n", ans, exp, "False");
+    //}
+
+    if (expr(exp, &success) != atoi(ans)) {
       printf("%s %s \33[1;41m\33[1;33m%s\33[0m\n", ans, exp, "False");
     }
 
@@ -205,4 +209,3 @@ void ui_mainloop() {
   //printf("%d", ans);
   file_gets();
 }
-
