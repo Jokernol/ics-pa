@@ -20,7 +20,8 @@ static int file_gets() {
   while(fgets(str, 256, fp) != NULL) {
     char *ans = strtok(str, " ");
     char *exp = ans + strlen(ans) + 1;
-    puts("s");
+    puts(ans);
+    puts(exp);
     bool success = true;
 
     if (expr(exp, &success) == atoi(ans)) {
