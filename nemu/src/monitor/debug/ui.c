@@ -46,13 +46,14 @@ static int cmd_x(char *args) {
   paddr_t addr = expr(arg2, &success);
 
   //sscanf(arg2, "%x", &addr);
+  printf("%s\n", arg1);
+  printf("%d\n", addr);
+  //uint8_t i;
+  //uint8_t len;
   
-  uint8_t i;
-  uint8_t len;
-  
-  for (i = 0, len = atoi(arg1); i < len; i ++) {
-    printf("%#x 0x%08x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
-  }
+  //for (i = 0, len = atoi(arg1); i < len; i ++) {
+  //  printf("%#x 0x%08x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
+  //}
 
   return 0;
 }
