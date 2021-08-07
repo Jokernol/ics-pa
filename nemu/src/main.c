@@ -24,11 +24,11 @@ static int file_gets() {
     puts(exp);
     bool success = true;
     printf("%d", expr(exp, &success));
-    if (expr(exp, &success) == atoi(ans)) {
-      printf("%s %s %s\n", ans, exp, "True");
-    } else {
-      printf("%s %s %s\n", ans, exp, "False");
-    }
+    //if (expr(exp, &success) == atoi(ans)) {
+    //  printf("%s %s %s\n", ans, exp, "True");
+    //} else {
+    //  printf("%s %s %s\n", ans, exp, "False");
+    //}
   }
 
   fclose(fp);
