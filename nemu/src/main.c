@@ -8,13 +8,13 @@ int is_exit_status_bad();
 
 word_t expr(char *e, bool *success);
 
-static void file_gets() {
+static int file_gets() {
   FILE* fp = fopen("/home/jokernol/Anything/ics-pa/nemu/tools/gen-expr/input", "r");
   char str[256] = {};
 
   if(fp == NULL) {
     perror("");
-    return;
+    return -1;
   }
   
   while(fgets(str, 256, fp) != NULL) {
@@ -40,6 +40,8 @@ static void file_gets() {
   }
 
   fclose(fp);
+
+  return 0;
 }
 
 int main(int argc, char *argv[]) {
