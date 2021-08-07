@@ -164,16 +164,16 @@ bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *succe
 
 void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success, uint32_t *op, uint8_t *op_type) {
   uint8_t i;
-  bool flag = true;
+  uint8_t flag = 0;
 
   for (i = left; i <= right; i ++) {
     if (tokens[i].type == '(') {
-      flag = false;
+      flag++;
     } else if (tokens[i].type == ')') {
-      flag = true;
+      flag--;
     }
 
-    if (flag && (tokens[i].type == '+' || tokens[i].type == '-' || tokens[i].type == '*' || tokens[i].type == '/')) {
+    if ((flag == 0) && (tokens[i].type == '+' || tokens[i].type == '-' || tokens[i].type == '*' || tokens[i].type == '/')) {
       if (!*op_type || (tokens[i].type == '+' || tokens[i].type == '-')) {
         *op = i;
         *op_type = tokens[i].type;
