@@ -36,6 +36,7 @@ static void file_gets() {
     puts(str);
   }
 
+  fclose(fp);
 }
 
 static int cmd_c(char *args) {
