@@ -21,9 +21,9 @@ static int file_gets() {
     char *ans = strtok(str, " ");
     char *exp = ans + strlen(ans) + 1;
     
-    exp[strlen(exp) - 1] = '\0';
+    //exp[strlen(exp) - 1] = '\0';
 
-    printf("%ld %s %s\n", sizeof(*exp), ans, exp);
+    printf("%ld %s %s\n", strlen(exp), ans, exp);
 
     
     //bool success = true;
@@ -36,7 +36,7 @@ static int file_gets() {
     //  printf("%s %s %s\n", ans, exp, "False");
     //}
 
-    memset(str, '\0', sizeof(str));
+    //memset(str, '\0', sizeof(str));
   }
 
   fclose(fp);
