@@ -20,10 +20,11 @@ static int file_gets() {
   while(fgets(str, 256, fp) != NULL) {
     char *ans = strtok(str, " ");
     char *exp = ans + strlen(ans) + 1;
-    exp[strlen(exp)] = '\0';
     
-    puts(ans);
-    puts(exp);
+    
+
+    printf("%s", exp);
+    printf("&&%s", ans);
     bool success = true;
     word_t res = expr(exp, &success);
 
