@@ -28,15 +28,22 @@ static char* rl_gets() {
   return line_read;
 }
 
-static void file_gets() {
+static int file_gets() {
   FILE* fp = fopen("$NEMU_HOME/tools/gen-expr/input", "r");
   char str[256] = {'\0'};
+
+  if(fp == NULL) {
+    perror("打开文件时发生错误");
+    return -1;
+  }
 
   while(fgets(str, 256, fp) != NULL) {
     puts(str);
   }
 
   fclose(fp);
+  
+  return 0;
 }
 
 static int cmd_c(char *args) {
