@@ -21,6 +21,8 @@ static int file_gets() {
     char *ans = strtok(str, " ");
     char *exp = ans + strlen(ans) + 1;
     
+    *(exp + strlen(exp) - 1) = '\0';
+    
     printf("%ld %s %s\n", strlen(exp), ans, exp);
 
     memset(str, '\0', sizeof(str));
