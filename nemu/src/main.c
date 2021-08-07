@@ -5,7 +5,7 @@
 void init_monitor(int, char *[]);
 void engine_start();
 int is_exit_status_bad();
-
+/*
 word_t expr(char *e, bool *success);
 
 static int file_gets() {
@@ -21,7 +21,7 @@ static int file_gets() {
     char *ans = strtok(str, " ");
     char *exp = ans + strlen(ans) + 1;
     
-    //exp[strlen(exp) - 1] = '\0';
+    exp[strlen(exp) - 1] = '\0';
 
     printf("%ld %s %s\n", strlen(exp), ans, exp);
 
@@ -43,18 +43,18 @@ static int file_gets() {
 
   return 0;
 }
-
+*/
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
-  //init_monitor(argc, argv);
+  init_monitor(argc, argv);
 
   /* Start engine. */
-  //engine_start();
+  engine_start();
 
-  //return is_exit_status_bad();
-  file_gets();
-
-  return 0;
+  return is_exit_status_bad();
+  //file_gets();
+//
+  //return 0;
 }
 
 
