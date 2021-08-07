@@ -7,16 +7,19 @@
 
 // this should be enough
 static char buf[65536] = {};
+static char hex_buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
+"  unsigned char x = 0;"
 "  unsigned result = %s; "
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
 
 static char* p;
+static char* q;
 
 static uint8_t choose(uint8_t n) {
   return rand() % n;
