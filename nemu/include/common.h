@@ -1,11 +1,11 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
-#define DEBUG
+//#define DEBUG
 //#define DIFF_TEST
 
 #ifdef __ISA_riscv64__
-# define ISA64
+#define ISA64
 #endif
 
 #if _SHARE
