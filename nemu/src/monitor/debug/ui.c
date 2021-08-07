@@ -33,7 +33,7 @@ static int file_gets() {
   char str[256] = {'\0'};
 
   if(fp == NULL) {
-    perror("打开文件时发生错误");
+    perror("");
     return -1;
   }
 
