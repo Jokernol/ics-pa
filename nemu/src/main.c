@@ -23,7 +23,9 @@ static int file_gets() {
     puts(ans);
     puts(exp);
     bool success = true;
-    printf("%d", expr(exp, &success));
+    word_t res = expr(exp, &success);
+    
+    printf("%d", res);
     //if (expr(exp, &success) == atoi(ans)) {
     //  printf("%s %s %s\n", ans, exp, "True");
     //} else {
