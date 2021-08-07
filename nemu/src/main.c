@@ -23,8 +23,7 @@ static int file_gets() {
     
     
 
-    printf("%s", exp);
-    printf("NN%s", ans);
+    printf("%s %s\n", ans, exp);
 
     //bool success = true;
     //word_t res = expr(exp, &success);
