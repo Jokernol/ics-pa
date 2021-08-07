@@ -165,7 +165,7 @@
 
 static int file_gets() {
   FILE* fp = fopen("/home/jokernol/Anything/ics-pa/nemu/tools/gen-expr/input", "r");
-  char str[256] = {};
+  char str[256] = {'\0'};
 
   if(fp == NULL) {
     perror("");
@@ -178,19 +178,19 @@ static int file_gets() {
     
     exp[strlen(exp) - 1] = '\0';
 
-    printf("%ld %s %s\n", strlen(exp), ans, exp);
+    //printf("%ld %s %s\n", strlen(exp), ans, exp);
 
     bool success = true;
-    word_t res = expr(exp, &success);
+    //word_t res = expr(exp, &success);
+//
+    //printf("%d", res);
+    if (expr(exp, &success) == atoi(ans)) {
+      printf("%s %s %s\n", ans, exp, "True");
+    } else {
+      printf("%s %s %s\n", ans, exp, "False");
+    }
 
-    printf("%d", res);
-    //if (expr(exp, &success) == atoi(ans)) {
-    //  printf("%s %s %s\n", ans, exp, "True");
-    //} else {
-    //  printf("%s %s %s\n", ans, exp, "False");
-    //}
-
-    //memset(str, '\0', sizeof(str));
+    memset(str, '\0', sizeof(str));
   }
 
   fclose(fp);
