@@ -24,7 +24,8 @@ static int file_gets() {
     
 
     printf("%s", exp);
-    printf("&&%s", ans);
+    printf("NN%s", ans);
+
     bool success = true;
     word_t res = expr(exp, &success);
 
