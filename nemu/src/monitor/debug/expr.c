@@ -239,9 +239,9 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 
-  //for (uint8_t i = 0; i < nr_token; i ++) {
-  //  printf("%d %s\n", tokens[i].type, tokens[i].str);
-  //}
+  for (uint8_t i = 0; i < nr_token; i ++) {
+    printf("%d %s\n", tokens[i].type, tokens[i].str);
+  }
 
   return eval(tokens, 0, nr_token - 1, success);
 }
