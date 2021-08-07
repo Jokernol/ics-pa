@@ -1,13 +1,12 @@
-#include <stdio.h>
 #include <isa.h>
 #include <stdlib.h>
 
 void init_monitor(int, char *[]);
 void engine_start();
 int is_exit_status_bad();
-/*
-word_t expr(char *e, bool *success);
 
+word_t expr(char *e, bool *success);
+/*
 static int file_gets() {
   FILE* fp = fopen("/home/jokernol/Anything/ics-pa/nemu/tools/gen-expr/input", "r");
   char str[256] = {};
@@ -46,15 +45,18 @@ static int file_gets() {
 */
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
-  init_monitor(argc, argv);
+  //init_monitor(argc, argv);
 
   /* Start engine. */
-  engine_start();
+  //engine_start();
 
-  return is_exit_status_bad();
+  //return is_exit_status_bad();
+  bool success = true;
+  word_t res = expr("1+1", &success);
+  printf("%d", res);
   //file_gets();
 //
-  //return 0;
+  return 0;
 }
 
 
