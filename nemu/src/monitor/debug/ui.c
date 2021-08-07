@@ -29,7 +29,7 @@ static char* rl_gets() {
 }
 
 static int file_gets() {
-  FILE* fp = fopen("input", "r");
+  FILE* fp = fopen("input.txt", "r");
   char str[256] = {'\0'};
 
   if(fp == NULL) {
