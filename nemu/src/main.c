@@ -16,11 +16,11 @@ static int file_gets() {
     perror("");
     return -1;
   }
-  puts("s");
+  
   while(fgets(str, 256, fp) != NULL) {
     char *ans = strtok(str, " ");
     char *exp = ans + strlen(ans) + 1;
-
+    puts("s");
     bool success = true;
 
     if (expr(exp, &success) == atoi(ans)) {
