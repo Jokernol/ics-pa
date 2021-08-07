@@ -47,7 +47,7 @@ static int cmd_x(char *args) {
 
   //sscanf(arg2, "%x", &addr);
   printf("%s\n", arg1);
-  printf("%d\n", addr);
+  printf("%u\n", addr);
   //uint8_t i;
   //uint8_t len;
   
