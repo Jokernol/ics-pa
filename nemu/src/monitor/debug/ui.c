@@ -28,16 +28,16 @@ static char* rl_gets() {
   return line_read;
 }
 
-//static void file_gets() {
-//  FILE* fp = fopen("input", "r");
-//  char str[256];
-//
-//  while(fgets(str, 256, fp) != NULL) {
-//    puts(str);
-//  }
-//
-//  fclose(fp);
-//}
+static void file_gets() {
+  FILE* fp = fopen("input.txt", "r");
+  char str[256] = {'\0'};
+
+  while(fgets(str, 256, fp) != NULL) {
+    puts(str);
+  }
+
+  fclose(fp);
+}
 
 static int cmd_c(char *args) {
   cpu_exec(-1);
@@ -45,7 +45,8 @@ static int cmd_c(char *args) {
 }
 
 static int cmd_q(char *args) {
-  return -1;
+  file_gets();
+  return 0;
 }
 
 static int cmd_x(char *args) {
