@@ -179,9 +179,9 @@ static int file_gets() {
     exp[strlen(exp) - 1] = '\0';
 
     bool success = true;
-
-    if (expr(exp, &success) != atoi(ans)) {
-      printf("%s %s \33[1;41m\33[1;33m%s\33[0m\n", ans, exp, "False");
+    word_t nemu_ans = expr(exp, &success);
+    if (nemu_ans != atoi(ans)) {
+      printf("%d %s %s \33[1;41m\33[1;33m%s\33[0m\n", nemu_ans, ans, exp, "False");
     }
 
     memset(str, '\0', sizeof(str));
