@@ -13,11 +13,11 @@ enum {
   TK_AND,
   TK_NOT,
   TK_NUM,
+  TK_DEREF,
   TK_NOTEQ,
   TK_HEXNUM,
   TK_REGISTER
   /* TODO: Add more token types */
-
 };
 
 static struct rule {
@@ -161,7 +161,7 @@ bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *succe
   return ans;
 }
 
-void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success, uint32_t *op, uint8_t *op_type) {
+void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success, uint32_t *op, uint32_t *op_type) {
   uint8_t i;
   uint8_t flag = 0;
 
@@ -215,7 +215,7 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
     return eval(tokens, left + 1, right - 1, success);
   }else {
     //op = the position of 主运算符 in the token expression;
-    uint8_t op_type = 0;
+    uint32_t op_type = 0;
     uint32_t op = 0;
 
     search_main_op(tokens, left, right, success, &op, &op_type);
@@ -228,6 +228,10 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
+      case TK_EQ: return val1 == val2;
+      case TK_OR: return val1 || val2;
+      case TK_AND: return val1 && val2;
+      case TK_NOTEQ: return val1 != val2;
       default: assert(0);
     }
   }
