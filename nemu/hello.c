@@ -1,9 +1,19 @@
-#include "watchpoint.h"
-#include "expr.h"
-
+#include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #define NR_WP 32
+#define NULL ((void *)0)
+
+typedef struct watchpoint {
+  int NO;
+  char* expr;
+  u_int32_t val;
+  struct watchpoint *next;
+
+  /* TODO: Add more members if necessary */
+
+} WP;
 
 static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
@@ -69,6 +79,17 @@ void print_w() {
   WP* p = head;
 
   while(p) {
-    printf("[Watchpoint NO.%d]", p->NO);
+    printf("[Watchpoint NO.%d]\n", p->NO);
+    p = p->next;
   }
+}
+
+int main() {
+  init_wp_pool();
+
+  for (int i = 0; i < 33; i ++) {
+    new_wp();
+  }
+
+  print_w();
 }

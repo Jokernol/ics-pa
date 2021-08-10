@@ -60,6 +60,29 @@ static int cmd_x(char *args) {
   return 0;
 }
 
+static int cmd_w(char *args) {
+  bool success = true;
+
+  uint32_t val = expr(args, &success);
+
+  if (success) {
+    WP* wp = new_wp();
+
+    strcpy(wp->expr, args);
+    wp->val = val;
+
+    printf("Succefully add watchpoint NO.%d\n", wp->NO);
+  } else {
+    printf("Unknown command format of 'w'\n");
+  }
+
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  return 0;
+}
+
 static int cmd_si(char *args) {
   char *arg = strtok(NULL, " ");
   uint64_t n = arg ? atoi(arg) : 1;
@@ -95,6 +118,8 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "w", "Add Watchpoint", cmd_w},
+  { "d", "Delete Watchpoint", cmd_d},
   { "x", "Examine memory", cmd_x },
   { "si", "Execute N instructions in a single step", cmd_si },
   { "info", "print registers informations", cmd_info },
