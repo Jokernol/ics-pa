@@ -85,6 +85,7 @@ void print_w() {
     printf("Num\tWhat\n");
     while(p) {
       printf("%d\t%s\n", p->NO, p->expr);
+      p = p->next;
     }
   }
 }
