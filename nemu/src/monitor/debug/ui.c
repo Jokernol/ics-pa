@@ -67,7 +67,7 @@ static int cmd_w(char *args) {
 
   if (success) {
     WP* wp = new_wp();
-    assert(wp);
+    assert(wp != NULL);
     strcpy(wp->expr, args);
     wp->val = val;
 
