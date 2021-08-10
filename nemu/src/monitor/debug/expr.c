@@ -41,7 +41,7 @@ static struct rule {
   {"!", TK_NOT},
   {"!=", TK_NOTEQ},
   {"\\b0[xX][0-9A-Fa-f]+\\b", TK_HEXNUM},
-  {"\\b\\$+\\w+\\b", TK_REGISTER},
+  {"\\b$\\w+\\b", TK_REGISTER},
   {"\\b[0-9]+\\b", TK_NUM},
   {"==", TK_EQ},        // equal
 };
