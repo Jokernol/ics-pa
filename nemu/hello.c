@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define NR_WP 32
 #define NULL ((void *)0)
@@ -79,7 +80,7 @@ void print_w() {
   WP* p = head;
 
   while(p) {
-    printf("[Watchpoint NO.%d]\n", p->NO);
+    printf("[Watchpoint NO.%d] %s\n", p->NO, p->expr);
     p = p->next;
   }
 }
@@ -87,9 +88,9 @@ void print_w() {
 int main() {
   init_wp_pool();
 
-  for (int i = 0; i < 33; i ++) {
-    new_wp();
-  }
+  WP *wp = new_wp();
+  wp->expr = (char*)malloc(sizeof("123"));
+  strcpy(wp->expr, "123");
 
   print_w();
 }

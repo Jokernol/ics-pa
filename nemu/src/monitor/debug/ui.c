@@ -67,7 +67,9 @@ static int cmd_w(char *args) {
 
   if (success) {
     WP* wp = new_wp();
-    assert(wp == NULL);
+    
+    wp->expr = (char*) malloc(sizeof(args));
+    
     strcpy(wp->expr, args);
     wp->val = val;
 
