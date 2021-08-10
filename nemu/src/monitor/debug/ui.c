@@ -48,12 +48,12 @@ static int cmd_x(char *args) {
   //sscanf(arg2, "%x", &addr);
   printf("%s\n", arg1);
   printf("%u\n", addr);
-  //uint8_t i;
-  //uint8_t len;
   
-  //for (i = 0, len = atoi(arg1); i < len; i ++) {
-  //  printf("%#x 0x%08x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
-  //}
+  uint8_t i;
+  uint8_t len;
+  for (i = 0, len = atoi(arg1); i < len; i ++) {
+    printf("%#x 0x%08x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
+  }
 
   return 0;
 }
