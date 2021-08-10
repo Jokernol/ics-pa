@@ -102,8 +102,6 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE: 
             break;
-          case TK_REGISTER:
-            break;
           default:
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token].str, substr_start, substr_len);
@@ -205,6 +203,8 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
       sscanf(tokens[left].str, "%u", &num);
     } else if (tokens[left].type == TK_HEXNUM) {
       sscanf(tokens[left].str, "%x", &num);
+    } else if (tokens[left].type == TK_REGISTER) {
+      num = isa_reg_str2val(tokens[left].str, success);
     }
 
     return num;
