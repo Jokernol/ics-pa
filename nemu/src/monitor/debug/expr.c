@@ -161,31 +161,85 @@ bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *succe
   return ans;
 }
 
-void search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success, uint32_t *op, uint32_t *op_type) {
+word_t search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success) {
   uint8_t i;
+  uint8_t priority = 0;
   uint8_t flag = 0;
+  uint32_t pos = left; 
 
-  for (i = left; i <= right; i ++) {
-    if (tokens[i].type == '(') {
+  for (i = right; i <= left; i --) {
+    if (tokens[i].type == ')') {
       flag++;
-    } else if (tokens[i].type == ')') {
+    } else if (tokens[i].type == '(') {
       flag--;
     }
 
-    if ((flag == 0) && (tokens[i].type == '+' || tokens[i].type == '-' || tokens[i].type == '*' || tokens[i].type == '/')) {
-      if (!*op_type || (tokens[i].type == '+' || tokens[i].type == '-')) {
-        *op = i;
-        *op_type = tokens[i].type;
-      } else if ((*op_type == '*' || *op_type == '/') && (tokens[i].type == '*' || tokens[i].type == '/')) {
-        *op = i;
-        *op_type = tokens[i].type;
+    if (flag != 0) continue;
+
+    switch (tokens[i].type) {
+    case '+': //priority = 4
+      if (priority < 4) {
+        pos = i;
+        priority = 4;
       }
+      break;
+    case '-': //priority = 4
+      if (priority < 4) {
+        pos = i;
+        priority = 4;
+      }
+      break;
+    case '*': //priority = 3
+      if (priority < 3) {
+        pos = i;
+        priority = 3;
+      }
+      break;
+    case '/': //priority = 3
+      if (priority < 3) {
+        pos = i;
+        priority = 3;
+      }
+      break;
+    case TK_EQ: //priority = 7
+      if (priority < 7) {
+        pos = i;
+        priority = 7;
+      }
+      break;
+    case TK_NOTEQ: //priority = 7
+      if (priority < 7) {
+        pos = i;
+        priority = 7;
+      }
+      break;
+    case TK_AND: //priority = 11
+      if (priority < 11) {
+        pos = i;
+        priority = 11;
+      }
+      break;
+    case TK_OR: //priority = 12
+      if (priority < 12) {
+        pos = i;
+        priority = 12;
+      }
+      break;
+    default:
+      break;
     }
+    //if ((flag == 0) && (tokens[i].type == '+' || tokens[i].type == '-' || tokens[i].type == '*' || tokens[i].type == '/')) {
+    //  if (!*op_type || (tokens[i].type == '+' || tokens[i].type == '-')) {
+    //    *op = i;
+    //    *op_type = tokens[i].type;
+    //  } else if ((*op_type == '*' || *op_type == '/') && (tokens[i].type == '*' || tokens[i].type == '/')) {
+    //    *op = i;
+    //    *op_type = tokens[i].type;
+    //  }
+    //}
   }
 
-  if (!op && !op_type) {
-    *success = false;
-  }
+  return pos;
 }
 
 word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
@@ -215,13 +269,11 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
     return eval(tokens, left + 1, right - 1, success);
   }else {
     //op = the position of 主运算符 in the token expression;
-    uint32_t op_type = 0;
-    uint32_t op = 0;
+    uint32_t op_pos = search_main_op(tokens, left, right, success);
+    uint32_t op_type = tokens[op_pos].type;
 
-    search_main_op(tokens, left, right, success, &op, &op_type);
-
-    uint32_t val1 = eval(tokens, left, op - 1, success);
-    uint32_t val2 = eval(tokens, op + 1, right, success);
+    uint32_t val1 = eval(tokens, left, op_pos - 1, success);
+    uint32_t val2 = eval(tokens, op_pos + 1, right, success);
 
     switch (op_type) {
       case '+': return val1 + val2;
