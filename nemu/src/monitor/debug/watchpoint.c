@@ -89,3 +89,30 @@ void print_w() {
     }
   }
 }
+
+bool check_wp() {
+  WP* wp = head;
+  bool flag = false;
+
+  while (wp != NULL) {
+    bool title = true;
+    bool success = true;
+
+    uint32_t new_val = expr(wp->expr, &success);
+
+    if (wp->val != new_val) {
+      if (title) {
+        printf("Num\tWhat\tOld_val\tNew_val\n");
+        title = false;
+      }
+
+      printf("%d\t%s\t%d\t%d\n", wp->NO, wp->expr, wp->val, new_val);
+
+      flag = true;
+    }
+
+    wp = wp->next;
+  }
+
+  return flag;
+}

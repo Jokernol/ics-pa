@@ -21,5 +21,7 @@ WP* del_wp(int no, bool* flag);
 
 void print_w();
 
+bool check_wp();
+
 #endif
  
