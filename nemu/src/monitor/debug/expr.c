@@ -1,5 +1,6 @@
 #include <isa.h>
 #include <stdlib.h>
+#include <memory/paddr.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -125,7 +126,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *success) {
+bool check_parentheses(uint32_t left, uint32_t right, bool *success) {
   int8_t n;
   uint8_t i;
 
@@ -162,7 +163,7 @@ bool check_parentheses(Token *tokens, uint32_t left, uint32_t right, bool *succe
   return ans;
 }
 
-word_t search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *success) {
+word_t search_main_op(uint32_t left, uint32_t right, bool *success) {
   uint8_t priority = 0;
   uint8_t flag = 0;
   uint32_t pos = left;
@@ -228,7 +229,7 @@ word_t search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *succes
   return pos;
 }
 
-word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
+word_t eval(uint32_t left, uint32_t right, bool *success) {
   if (left > right || *success == false) {
     /* Bad expression */
     return 0;
@@ -248,18 +249,31 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
     }
 
     return num;
-  }else if (check_parentheses(tokens, left, right, success) == true) {
+  }else if (check_parentheses(left, right, success) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    return eval(tokens, left + 1, right - 1, success);
+    return eval(left + 1, right - 1, success);
   }else {
     //op = the position of 主运算符 in the token expression;
-    uint32_t op_pos = search_main_op(tokens, left, right, success);
+    uint32_t op_pos = search_main_op(left, right, success);
     uint32_t op_type = tokens[op_pos].type;
 
-    uint32_t val1 = eval(tokens, left, op_pos - 1, success);
-    uint32_t val2 = eval(tokens, op_pos + 1, right, success);
+    uint32_t val1;
+    uint32_t val2;
+
+    if (tokens[op_pos].type == TK_NOT || tokens[op_pos].type == TK_MINUS || tokens[op_pos].type == TK_DEREF) {
+      val2 = eval(op_pos + 1, right, success);
+      switch (tokens[op_pos].type) {
+        case TK_NOT: return !val2;
+        case TK_MINUS: return -val2;
+        case TK_DEREF: return paddr_read(val2, 4);
+        default: assert(0);
+      }
+    }
+
+    val1 = eval(left, op_pos - 1, success);
+    val2 = eval(op_pos + 1, right, success);
 
     switch (op_type) {
       case '+': return val1 + val2;
@@ -282,9 +296,18 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 
+  for (uint8_t i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != ')' && tokens[i - 1].type != TK_NUM && tokens[i - 1].type != TK_HEXNUM && tokens[i - 1].type != TK_REGISTER))) {
+      tokens[i].type = TK_DEREF;
+    }
+    if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type != ')' && tokens[i - 1].type != TK_NUM && tokens[i - 1].type != TK_HEXNUM && tokens[i - 1].type != TK_REGISTER))) {
+      tokens[i].type = TK_MINUS;
+    }
+  }
+
   //for (uint8_t i = 0; i < nr_token; i ++) {
   //  printf("%d %s\n", tokens[i].type, tokens[i].str);
   //}
 
-  return eval(tokens, 0, nr_token - 1, success);
+  return eval(0, nr_token - 1, success);
 }
