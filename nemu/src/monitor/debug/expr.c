@@ -204,7 +204,7 @@ word_t eval(Token *tokens, uint32_t left, uint32_t right, bool *success) {
     } else if (tokens[left].type == TK_HEXNUM) {
       sscanf(tokens[left].str, "%x", &num);
     } else if (tokens[left].type == TK_REGISTER) {
-      num = isa_reg_str2val(tokens[left].str, success);
+      num = isa_reg_str2val(tokens[left].str + 1, success);
     }
 
     return num;
