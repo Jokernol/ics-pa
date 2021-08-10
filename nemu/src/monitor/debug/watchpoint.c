@@ -44,25 +44,36 @@ WP* new_wp() {
 
 void free_wp(WP* wp) {
   WP* p;
-  WP* q;
 
   p = head;
   
-  if (p->NO == wp->NO) {
+  if (head == wp) {
     head = p->next;
-
-    free(p);
   } else {
-    while(p->next->NO != wp->NO) {
+    while(p != NULL && p->next != wp) {
       p = p->next;
     }
 
-    q = p->next;
-
-    p->next = q->next;
-
-    free(q);    
+    p->next = p->next->next;   
   }
+
+  wp->val = 0;
+  free(wp->expr);
+
+  wp->next = free_;
+  free_ = wp;
+}
+
+WP* del_wp(int no, bool* flag) {
+  WP* p = head;
+  
+  while(p != NULL && p->NO != no) {
+    p = p->next;
+  }
+
+  if (p == NULL) *flag = false;
+
+  return p;
 }
 
 void print_w() {

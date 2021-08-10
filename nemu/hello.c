@@ -92,5 +92,9 @@ int main() {
   wp->expr = (char*)malloc(sizeof("123"));
   strcpy(wp->expr, "123");
 
+  wp = new_wp();
+  wp->expr = (char*)malloc(sizeof("123"));
+  strcpy(wp->expr, "123");
+
   print_w();
 }

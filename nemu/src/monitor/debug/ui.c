@@ -69,7 +69,7 @@ static int cmd_w(char *args) {
     WP* wp = new_wp();
     
     wp->expr = (char*) malloc(sizeof(args));
-    
+
     strcpy(wp->expr, args);
     wp->val = val;
 
@@ -82,9 +82,18 @@ static int cmd_w(char *args) {
 }
 
 static int cmd_d(char *args) {
-  WP* wp = new_wp();
-  strcpy(wp->expr, args);
-  printf("%s\n", wp->expr);
+  char *arg = strtok(NULL, " ");
+
+  bool flag = true;
+  
+  WP* wp = del_wp(atoi(args), &flag);
+
+  if (flag) {
+    free_wp(wp);
+  } else {
+    printf("No breakpoint number %d.\n", atoi(arg));
+  }
+
   return 0;
 }
 
