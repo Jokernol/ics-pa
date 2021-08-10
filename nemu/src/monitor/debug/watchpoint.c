@@ -79,7 +79,12 @@ WP* del_wp(int no, bool* flag) {
 void print_w() {
   WP* p = head;
 
-  while(p) {
-    printf("[Watchpoint NO.%d]", p->NO);
+  if (p == NULL) {
+    printf("No watchpoints.\n");
+  } else {
+    printf("Num\tWhat\n");
+    while(p) {
+      printf("%d\t%s\n", p->NO, p->expr);
+    }
   }
 }

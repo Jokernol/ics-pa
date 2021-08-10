@@ -115,6 +115,8 @@ static int cmd_info(char *args) {
 
   if (arg && strcmp(arg, "r") == 0) {
     isa_reg_display();
+  } else if (arg && strcmp(arg, "w") == 0) {
+    print_w();
   } else {
     printf("Unknown command format of 'info'\n");
   }
