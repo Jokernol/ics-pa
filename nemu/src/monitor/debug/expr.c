@@ -167,7 +167,7 @@ word_t search_main_op(Token *tokens, uint32_t left, uint32_t right, bool *succes
   uint8_t flag = 0;
   uint32_t pos = left; 
 
-  for (i = right; i <= left; i --) {
+  for (i = right; i >= left; i --) {
     if (tokens[i].type == ')') {
       flag++;
     } else if (tokens[i].type == '(') {
