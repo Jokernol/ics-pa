@@ -82,9 +82,9 @@ void print_w() {
   if (p == NULL) {
     printf("No watchpoints.\n");
   } else {
-    printf("Num\tWhat\n");
+    printf("Num\tWhat\tVal\n");
     while(p) {
-      printf("%d\t%s\n", p->NO, p->expr);
+      printf("%d\t%s\t%d\n", p->NO, p->expr, p->val);
       p = p->next;
     }
   }
