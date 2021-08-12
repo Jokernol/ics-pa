@@ -120,6 +120,7 @@ clean:
 	$(MAKE) -C tools/kvm-diff clean
 
 count:
+	$(call git_commit, "count")
 	git checkout master
 	find . -name "*.c" -or -name "*.h" | xargs grep -v "^$$" | wc -l
 	git checkout @{-1}
