@@ -119,9 +119,8 @@ clean:
 	$(MAKE) -C tools/qemu-diff clean
 	$(MAKE) -C tools/kvm-diff clean
 
+VAL = $(shell git checkout master; ll | wc -l)
+NEW_VAL = $(shell git checkout pa1; ll | wc -l)
 count:
 	$(call git_commit, "count")
-	git checkout master
-	find . -name "*.c" -or -name "*.h" | xargs grep -v "^$$" | wc -l
-	git checkout @{-1}
-	find . -name "*.c" -or -name "*.h" | xargs grep -v "^$$" | wc -l
+	echo $(($(VAL) - $(NEW_VAL)))
