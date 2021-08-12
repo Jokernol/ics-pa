@@ -60,8 +60,8 @@ include Makefile.git
 .DEFAULT_GOAL = app
 
 # Compilation flags
-CC = gcc
-LD = gcc
+CC = gcc-9
+LD = gcc-9
 INCLUDES  = $(addprefix -I, $(INC_DIR))
 CFLAGS   += -O2 -MMD -Wall -Werror -ggdb3 $(INCLUDES) \
             -D__ENGINE_$(ENGINE)__ \
@@ -85,7 +85,7 @@ $(OBJ_DIR)/%.o: src/%.c
 
 # Some convenient rules
 
-.PHONY: app run gdb clean run-env $(DIFF_REF_SO)
+.PHONY: app run gdb clean run-env $(DIFF_REF_SO) count
 app: $(BINARY)
 
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
@@ -118,3 +118,9 @@ clean:
 	$(MAKE) -C tools/gen-expr clean
 	$(MAKE) -C tools/qemu-diff clean
 	$(MAKE) -C tools/kvm-diff clean
+
+count:
+	git checkout master
+	find . -name "*.c" -or -name "*.h" | xargs grep -v "^$$" | wc -l
+	git checkout @{-1}
+	find . -name "*.c" -or -name "*.h" | xargs grep -v "^$$" | wc -l
