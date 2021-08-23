@@ -1,17 +1,17 @@
 #include <isa.h>
+#include <memory/paddr.h>
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <stdlib.h>
+
 #include "expr.h"
 #include "watchpoint.h"
-
-#include <stdlib.h>
-#include <memory/paddr.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
 void cpu_exec(uint64_t);
 int is_batch_mode();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
-static char* rl_gets() {
+static char *rl_gets() {
   static char *line_read = NULL;
 
   if (line_read) {
@@ -40,20 +40,20 @@ static int cmd_q(char *args) {
 static int cmd_x(char *args) {
   char *arg1 = strtok(NULL, " ");
   char *arg2 = args + strlen(args) + 1;
-  
+
   bool success = true;
   paddr_t addr = expr(arg2, &success);
 
   if (success) {
     uint8_t i;
     uint8_t len;
-    for (i = 0, len = atoi(arg1); i < len; i ++) {
+    for (i = 0, len = atoi(arg1); i < len; i++) {
       printf("%#x 0x%08x\n", addr + (i * 4), paddr_read(addr + (i * 4), 4));
     }
   } else {
     printf("Unknown command format of 'x'\n");
   }
-  
+
   return 0;
 }
 
@@ -63,9 +63,9 @@ static int cmd_w(char *args) {
   uint32_t val = expr(args, &success);
 
   if (success) {
-    WP* wp = new_wp();
-    
-    wp->expr = (char*) malloc(sizeof(args));
+    WP *wp = new_wp();
+
+    wp->expr = (char *)malloc(sizeof(args));
 
     strcpy(wp->expr, args);
     wp->val = val;
@@ -82,8 +82,8 @@ static int cmd_d(char *args) {
   char *arg = strtok(NULL, " ");
 
   bool flag = true;
-  
-  WP* wp = del_wp(atoi(args), &flag);
+
+  WP *wp = del_wp(atoi(args), &flag);
 
   if (flag) {
     free_wp(wp);
@@ -126,18 +126,17 @@ static int cmd_help(char *args);
 static struct {
   char *name;
   char *description;
-  int (*handler) (char *);
-} cmd_table [] = {
-  { "help", "Display informations about all supported commands", cmd_help },
-  { "c", "Continue the execution of the program", cmd_c },
-  { "q", "Exit NEMU", cmd_q },
-  { "w", "Add Watchpoint", cmd_w},
-  { "d", "Delete Watchpoint", cmd_d},
-  { "x", "Examine memory", cmd_x },
-  { "si", "Execute N instructions in a single step", cmd_si },
-  { "info", "print registers informations", cmd_info },
-  /* TODO: Add more commands */
-
+  int (*handler)(char *);
+} cmd_table[] = {
+    {"help", "Display informations about all supported commands", cmd_help},
+    {"c", "Continue the execution of the program", cmd_c},
+    {"q", "Exit NEMU", cmd_q},
+    {"w", "Add Watchpoint", cmd_w},
+    {"d", "Delete Watchpoint", cmd_d},
+    {"x", "Examine memory", cmd_x},
+    {"si", "Execute N instructions in a single step", cmd_si},
+    {"info", "print registers informations", cmd_info},
+    /* TODO: Add more commands */
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -149,12 +148,11 @@ static int cmd_help(char *args) {
 
   if (arg == NULL) {
     /* no argument given */
-    for (i = 0; i < NR_CMD; i ++) {
+    for (i = 0; i < NR_CMD; i++) {
       printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
     }
-  }
-  else {
-    for (i = 0; i < NR_CMD; i ++) {
+  } else {
+    for (i = 0; i < NR_CMD; i++) {
       if (strcmp(arg, cmd_table[i].name) == 0) {
         printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
         return 0;
@@ -171,12 +169,14 @@ void ui_mainloop() {
     return;
   }
 
-  for (char *str; (str = rl_gets()) != NULL; ) {
+  for (char *str; (str = rl_gets()) != NULL;) {
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
-    if (cmd == NULL) { continue; }
+    if (cmd == NULL) {
+      continue;
+    }
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
@@ -192,14 +192,18 @@ void ui_mainloop() {
 #endif
 
     int i;
-    for (i = 0; i < NR_CMD; i ++) {
+    for (i = 0; i < NR_CMD; i++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
-        if (cmd_table[i].handler(args) < 0) { return; }
+        if (cmd_table[i].handler(args) < 0) {
+          return;
+        }
         break;
       }
     }
 
-    if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
+    if (i == NR_CMD) {
+      printf("Unknown command '%s'\n", cmd);
+    }
   }
 }
 
@@ -211,11 +215,11 @@ void ui_mainloop() {
 //    perror("");
 //    return -1;
 //  }
-//  
+//
 //  while(fgets(str, 256, fp) != NULL) {
 //    char *ans = strtok(str, " ");
 //    char *exp = ans + strlen(ans) + 1;
-//    
+//
 //    exp[strlen(exp) - 1] = '\0';
 //
 //    bool success = true;
