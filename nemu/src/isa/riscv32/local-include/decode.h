@@ -36,7 +36,7 @@ static inline def_DHelper(U) {
 static inline def_DHelper(J) {
   decode_op_i(s, id_src1, (s->isa.instr.j.imm20 << 20) + (s->isa.instr.j.imm19_12 << 12) + (s->isa.instr.j.imm11 << 11) + (s->isa.instr.j.imm10_1 << 1), true);
   decode_op_r(s, id_dest, s->isa.instr.j.rd, false);
-  print_Dop(id_src1->str, OP_STR_SIZE, "0x%x", (s->isa.instr.j.imm20 << 20) + (s->isa.instr.j.imm19_12 << 12) + (s->isa.instr.j.imm11 << 11) + (s->isa.instr.j.imm10_1 << 1) + s->seq_pc);
+  print_Dop(id_src1->str, OP_STR_SIZE, "0x%x", (s->isa.instr.j.imm20 << 20) + (s->isa.instr.j.imm19_12 << 12) + (s->isa.instr.j.imm11 << 11) + (s->isa.instr.j.imm10_1 << 1) + cpu.pc);
 }
 
 static inline def_DHelper(S) {
