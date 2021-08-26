@@ -11,6 +11,7 @@ static inline def_EHelper(jal) {
 static inline def_EHelper(jalr) {
   rtl_addi(s, ddest, &s->seq_pc, 4);
   rtl_addi(s, &s->is_jmp, rz, 1);
+
   s->jmp_pc = (*dsrc1 + s->src2.simm) & ~1;
 
   print_asm_template3(jalr);
