@@ -25,6 +25,7 @@ static inline def_EHelper(compute) {
     EX (0b0000000000, add)
     EX (0b0100000000, sub)
     EX (0b0000000100, xor)
+    EX (0b0000000011, sltu)
     default: exec_inv(s);
   }
 }

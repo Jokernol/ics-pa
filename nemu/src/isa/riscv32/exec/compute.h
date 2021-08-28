@@ -37,3 +37,7 @@ static inline def_EHelper(xor) {
   rtl_xor(s, ddest,dsrc1, dsrc2);
   print_asm_template3(xor);
 }
+
+static inline def_EHelper(sltu) {
+  *ddest = (*dsrc1 < *dsrc2) ? 1 : 0;
+}
