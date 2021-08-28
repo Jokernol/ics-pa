@@ -38,3 +38,11 @@ static inline def_EHelper(bne) {
 
   print_asm_template3(bne);
 }
+
+static inline def_EHelper(bge) {
+  rtl_jrelop(s, RELOP_GE, dsrc1, ddest, cpu.pc + s->src2.simm);
+
+  print_Dop(id_src2->str, OP_STR_SIZE, "0x%x", cpu.pc + s->src2.simm);
+
+  print_asm_template3(bge);
+}
