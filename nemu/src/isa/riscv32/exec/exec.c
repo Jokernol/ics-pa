@@ -26,6 +26,7 @@ static inline def_EHelper(compute) {
     EX (0b0100000000, sub)
     EX (0b0000001000, mul)
     EX (0b0000001100, div)
+    EX (0b0000000111, and)
     EX (0b0000000100, xor)
     EX (0b0000000011, sltu)
     EX (0b0000000110, or)
@@ -38,6 +39,7 @@ static inline def_EHelper(computei) {
     EX (0b000, addi)
     EX (0b010, slti)
     EX (0b011, sltiu)
+    EX (0b111, andi)
     default: exec_inv(s);
   }
 }
