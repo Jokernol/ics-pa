@@ -21,9 +21,10 @@ static inline def_EHelper(store) {
 }
 
 static inline def_EHelper(compute) {
-  switch (s->isa.instr.r.funct7) {
-    EX(0b0000000, add)
-    EX(0b0100000, sub)
+  switch (s->isa.instr.r.funct7 << 3 | s->isa.instr.r.funct3) {
+    EX (0b0000000000, add)
+    EX (0b0100000000, sub)
+    EX (0b0000000100, xor)
     default: exec_inv(s);
   }
 }
