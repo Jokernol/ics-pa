@@ -37,6 +37,13 @@ static inline def_EHelper(computei) {
   }
 }
 
+static inline def_EHelper(branch) {
+  switch (s->isa.instr.b.funct3) {
+    EX (0b000, beq)
+    default: exec_inv(s);
+  }
+}
+
 static inline void fetch_decode_exec(DecodeExecState *s) {
   s->isa.instr.val = instr_fetch(&s->seq_pc, 4);
   Assert(s->isa.instr.i.opcode1_0 == 0x3, "Invalid instruction");
@@ -46,6 +53,7 @@ static inline void fetch_decode_exec(DecodeExecState *s) {
     IDEX (0b00100, I, computei)
     IDEX (0b11001, I, jalr)
     IDEX (0b01000, S, store)
+    IDEX (0b11000, B, branch)
     IDEX (0b01101, U, lui)
     IDEX (0b00101, U, auipc)
     IDEX (0b11011, J, jal)

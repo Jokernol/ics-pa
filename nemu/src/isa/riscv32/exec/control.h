@@ -16,3 +16,12 @@ static inline def_EHelper(jalr) {
 
   print_asm_template3(jalr);
 }
+
+static inline def_EHelper(beq) {
+  if (*ddest == *dsrc1) {
+    rtl_addi(s, &s->is_jmp, rz, 1);
+    rtl_addi(s, &s->jmp_pc, &cpu.pc, s->src2.simm);
+  }
+
+  print_asm_template3(beq);
+}
