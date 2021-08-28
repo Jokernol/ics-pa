@@ -5,7 +5,7 @@ static inline def_EHelper(jal) {
 
   rtl_j(s, pc);
 
-  print_Dop(id_src1->str, OP_STR_SIZE, "0x%x", s->jmp_pc);
+  print_Dop(id_src1->str, OP_STR_SIZE, "0x%x", pc);
 
   print_asm_template2(jal);
 }
