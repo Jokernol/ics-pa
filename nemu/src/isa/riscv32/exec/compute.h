@@ -33,8 +33,12 @@ static inline def_EHelper(sub) {
   print_asm_template3(sub);
 }
 
+static inline def_EHelper(or) {
+  rtl_or(s, ddest, dsrc1, dsrc2);
+}
+
 static inline def_EHelper(xor) {
-  rtl_xor(s, ddest,dsrc1, dsrc2);
+  rtl_xor(s, ddest, dsrc1, dsrc2);
   print_asm_template3(xor);
 }
 
