@@ -23,6 +23,7 @@ static inline def_EHelper(store) {
 static inline def_EHelper(compute) {
   switch (s->isa.instr.r.funct7) {
     EX(0b0000000, add)
+    default: exec_inv(s);
   }
 }
 
