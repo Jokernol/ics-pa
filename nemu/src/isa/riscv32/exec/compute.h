@@ -8,6 +8,11 @@ static inline def_EHelper(addi) {
   print_asm_template3(addi);
 }
 
+static inline def_EHelper(slti) {
+  *ddest = (*dsrc1 < id_src2->imm) ? 1 : 0;
+  print_asm_template3(slti);
+}
+
 static inline def_EHelper(auipc) {
   rtl_addi(s, ddest, &cpu.pc, id_src1->imm);
   print_asm_template2(auipc);
