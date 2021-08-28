@@ -17,3 +17,8 @@ static inline def_EHelper(add) {
   rtl_add(s, ddest, dsrc1, dsrc2);
   print_asm_template3(add);
 }
+
+static inline def_EHelper(sub) {
+  rtl_sub(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(sub);
+}
