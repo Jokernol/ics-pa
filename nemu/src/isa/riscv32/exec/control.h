@@ -49,3 +49,13 @@ static inline def_EHelper(bge) {
 
   print_asm_template3(bge);
 }
+
+static inline def_EHelper(blt) {
+  vaddr_t pc = cpu.pc + s->dest.simm;
+
+  rtl_jrelop(s, RELOP_LT, dsrc1, dsrc2, pc);
+
+  print_Dop(id_dest->str, OP_STR_SIZE, "0x%x", pc);
+
+  print_asm_template3(blt);
+}
