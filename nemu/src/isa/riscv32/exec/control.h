@@ -29,10 +29,12 @@ static inline def_EHelper(beq) {
 }
 
 static inline def_EHelper(bne) {
-  if (*ddest != *dsrc1) {
-    rtl_addi(s, &s->is_jmp, rz, 1);
-    rtl_addi(s, &s->jmp_pc, &cpu.pc, s->src2.simm);
-  }
+  //if (*ddest != *dsrc1) {
+  //  rtl_addi(s, &s->is_jmp, rz, 1);
+  //  rtl_addi(s, &s->jmp_pc, &cpu.pc, s->src2.simm);
+  //}
+
+  rtl_jrelop(s, RELOP_NE, dsrc1, ddest, cpu.pc + s->src2.simm);
 
   print_Dop(id_src2->str, OP_STR_SIZE, "0x%x", cpu.pc + s->src2.simm);
 
