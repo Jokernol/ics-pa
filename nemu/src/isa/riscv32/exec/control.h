@@ -21,31 +21,31 @@ static inline def_EHelper(jalr) {
 }
 
 static inline def_EHelper(beq) {
-  vaddr_t pc = cpu.pc + s->src2.simm;
+  vaddr_t pc = cpu.pc + s->dest.simm;
 
-  rtl_jrelop(s, RELOP_EQ, dsrc1, ddest, pc);
+  rtl_jrelop(s, RELOP_EQ, dsrc1, dsrc2, pc);
 
-  print_Dop(id_src2->str, OP_STR_SIZE, "0x%x", pc);
+  print_Dop(id_dest->str, OP_STR_SIZE, "0x%x", pc);
 
   print_asm_template3(beq);
 }
 
 static inline def_EHelper(bne) {
-  vaddr_t pc = cpu.pc + s->src2.simm;
+  vaddr_t pc = cpu.pc + s->dest.simm;
 
-  rtl_jrelop(s, RELOP_NE, dsrc1, ddest, pc);
+  rtl_jrelop(s, RELOP_NE, dsrc1, dsrc2, pc);
 
-  print_Dop(id_src2->str, OP_STR_SIZE, "0x%x", pc);
+  print_Dop(id_dest->str, OP_STR_SIZE, "0x%x", pc);
 
   print_asm_template3(bne);
 }
 
 static inline def_EHelper(bge) {
-  vaddr_t pc = cpu.pc + s->src2.simm;
+  vaddr_t pc = cpu.pc + s->dest.simm;
 
-  rtl_jrelop(s, RELOP_GE, dsrc1, ddest, pc);
+  rtl_jrelop(s, RELOP_GE, dsrc1, dsrc2, pc);
 
-  print_Dop(id_src2->str, OP_STR_SIZE, "0x%x", pc);
+  print_Dop(id_dest->str, OP_STR_SIZE, "0x%x", pc);
 
   print_asm_template3(bge);
 }
