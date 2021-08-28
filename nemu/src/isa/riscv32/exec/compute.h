@@ -4,11 +4,16 @@ static inline def_EHelper(lui) {
 }
 
 static inline def_EHelper(addi) {
-  rtl_addi(s, ddest, id_src1->preg, id_src2->imm);
+  rtl_addi(s, ddest, dsrc1, id_src2->imm);
   print_asm_template3(addi);
 }
 
 static inline def_EHelper(auipc) {
   rtl_addi(s, ddest, &cpu.pc, id_src1->imm);
   print_asm_template2(auipc);
+}
+
+static inline def_EHelper(add) {
+  rtl_add(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(add);
 }
