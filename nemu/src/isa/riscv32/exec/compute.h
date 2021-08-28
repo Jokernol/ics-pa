@@ -24,8 +24,13 @@ static inline def_EHelper(sub) {
 }
 
 static inline def_EHelper(mul) {
-  rtl_mul_lo(s, ddest, dsrc1, dsrc2);
+  rtl_imul_lo(s, ddest, dsrc1, dsrc2);
   print_asm_template3(mul);
+}
+
+static inline def_EHelper(div) {
+  rtl_idiv_q(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(div);
 }
 
 static inline def_EHelper(or) {
