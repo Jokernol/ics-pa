@@ -4,17 +4,22 @@ static inline def_EHelper(lui) {
 }
 
 static inline def_EHelper(addi) {
-  rtl_addi(s, ddest, dsrc1, id_src2->imm);
+  rtl_addi(s, ddest, dsrc1, id_src2->simm);
   print_asm_template3(addi);
 }
 
 static inline def_EHelper(slti) {
-  *ddest = (*dsrc1 < id_src2->imm) ? 1 : 0;
+  *ddest = (*dsrc1 < id_src2->simm) ? 1 : 0;
   print_asm_template3(slti);
 }
 
+static inline def_EHelper(sltiu) {
+  *ddest = (*dsrc1 < id_src2->imm) ? 1 : 0;
+  print_asm_template3(sltiu);
+}
+
 static inline def_EHelper(auipc) {
-  rtl_addi(s, ddest, &cpu.pc, id_src1->imm);
+  rtl_addi(s, ddest, &cpu.pc, id_src1->simm);
   print_asm_template2(auipc);
 }
 
