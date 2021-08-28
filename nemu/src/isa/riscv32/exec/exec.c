@@ -20,11 +20,17 @@ static inline def_EHelper(store) {
   }
 }
 
+static inline def_EHelper(compute) {
+  switch (s->isa.instr.r.funct7) {
+    EX(0b0000000, add)
+  }
+}
+
 static inline void fetch_decode_exec(DecodeExecState *s) {
   s->isa.instr.val = instr_fetch(&s->seq_pc, 4);
   Assert(s->isa.instr.i.opcode1_0 == 0x3, "Invalid instruction");
   switch (s->isa.instr.i.opcode6_2) {
-    IDEX (0b01100, R, add)
+    IDEX (0b01100, R, compute)
     IDEX (0b00000, I, load)
     IDEX (0b00100, I, addi)
     IDEX (0b11001, I, jalr)
