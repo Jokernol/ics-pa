@@ -40,6 +40,7 @@ static inline def_EHelper(computei) {
 static inline def_EHelper(branch) {
   switch (s->isa.instr.b.funct3) {
     EX (0b000, beq)
+    EX (0b001, bne)
     default: exec_inv(s);
   }
 }
