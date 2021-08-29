@@ -59,3 +59,23 @@ static inline def_EHelper(blt) {
 
   print_asm_template3(blt);
 }
+
+static inline def_EHelper(bltu) {
+  vaddr_t pc = cpu.pc + s->dest.simm;
+
+  rtl_jrelop(s, RELOP_LTU, dsrc1, dsrc2, pc);
+
+  print_Dop(id_dest->str, OP_STR_SIZE, "0x%x", pc);
+
+  print_asm_template3(bltu);
+}
+
+static inline def_EHelper(bgeu) {
+  vaddr_t pc = cpu.pc + s->dest.simm;
+
+  rtl_jrelop(s, RELOP_GEU, dsrc1, dsrc2, pc);
+
+  print_Dop(id_dest->str, OP_STR_SIZE, "0x%x", pc);
+
+  print_asm_template3(bgeu);
+}

@@ -55,6 +55,12 @@ static inline def_EHelper(andi) {
 
 static inline def_EHelper(or) {
   rtl_or(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(or);
+}
+
+static inline def_EHelper(ori) {
+  rtl_ori(s, ddest, dsrc1, id_src2->simm);
+  print_asm_template3(ori);
 }
 
 static inline def_EHelper(xor) {
@@ -89,6 +95,7 @@ static inline def_EHelper(sltiu) {
 
 static inline def_EHelper(sll) {
   rtl_shl(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(sll);
 }
 
 static inline def_EHelper(slli) {
@@ -113,4 +120,5 @@ static inline def_EHelper(srli) {
 
 static inline def_EHelper(srai) {
   rtl_sari(s, ddest, dsrc1, id_src2->simm);
+  print_asm_template3(srai);
 }

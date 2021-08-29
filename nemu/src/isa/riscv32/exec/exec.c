@@ -64,12 +64,13 @@ static inline def_EHelper(compute) {
 static inline def_EHelper(computei) {
   switch (s->isa.instr.i.funct3) {
     EX (0b000, addi)
+    EX (0b110, ori)
+    EX (0b111, andi)
     EX (0b100, xori)
     EX (0b001, sli)
     EX (0b101, sri)
     EX (0b010, slti)
     EX (0b011, sltiu)
-    EX (0b111, andi)
     default: exec_inv(s);
   }
 }
@@ -80,6 +81,8 @@ static inline def_EHelper(branch) {
     EX (0b001, bne)
     EX (0b100, blt)
     EX (0b101, bge)
+    EX (0b110, bltu)
+    EX (0b111, bgeu)
     default: exec_inv(s);
   }
 }
