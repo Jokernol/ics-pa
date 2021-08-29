@@ -9,6 +9,7 @@ static inline void set_width(DecodeExecState *s, int width) {
 static inline def_EHelper(load) {
   switch (s->isa.instr.i.funct3) {
     EXW  (2, ld, 4)
+
     default: exec_inv(s);
   }
 }
