@@ -76,3 +76,8 @@ static inline def_EHelper(sltiu) {
   rtl_setrelopi(s, RELOP_LTU, ddest, dsrc1, id_src2->imm);
   print_asm_template3(sltiu);
 }
+
+static inline def_EHelper(slli) {
+  rtl_shli(s, ddest, dsrc1, id_src2->imm);
+  print_asm_template3(slli);
+}

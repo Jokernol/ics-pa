@@ -43,6 +43,7 @@ static inline def_EHelper(compute) {
 static inline def_EHelper(computei) {
   switch (s->isa.instr.i.funct3) {
     EX (0b000, addi)
+    EX (0b001, slli)
     EX (0b010, slti)
     EX (0b011, sltiu)
     EX (0b111, andi)
