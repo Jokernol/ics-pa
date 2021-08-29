@@ -24,6 +24,29 @@ static inline def_EHelper(store) {
   }
 }
 
+static inline def_EHelper(sli) {
+  switch (s->isa.instr.i.simm11_0 & 0xffe0) {
+    EX(0b0000000, slli)
+    default: exec_inv(s);
+  }
+}
+
+static inline def_EHelper(sr) {
+  switch (s->isa.instr.r.funct7) {
+    EX(0b0000000, srl)
+    EX(0b0100000, sra)
+    default: exec_inv(s);
+  }
+}
+
+static inline def_EHelper(sri) {
+  switch (s->isa.instr.i.simm11_0 & 0xffe0) {
+    EX (0b0000000, srli)
+    EX (0b0100000, srai)
+    default: exec_inv(s);
+  }
+}
+
 static inline def_EHelper(compute) {
   switch (s->isa.instr.r.funct7 << 3 | s->isa.instr.r.funct3) {
     EX (0b0000000000, add)
@@ -45,7 +68,8 @@ static inline def_EHelper(computei) {
   switch (s->isa.instr.i.funct3) {
     EX (0b000, addi)
     EX (0b100, xori)
-    EX (0b001, slli)
+    EX (0b001, sli)
+    EX (0b101, sri)
     EX (0b010, slti)
     EX (0b011, sltiu)
     EX (0b111, andi)

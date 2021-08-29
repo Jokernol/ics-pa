@@ -90,3 +90,22 @@ static inline def_EHelper(slli) {
   rtl_shli(s, ddest, dsrc1, id_src2->simm);
   print_asm_template3(slli);
 }
+
+static inline def_EHelper(srl) {
+  rtl_shr(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(srl);
+}
+
+static inline def_EHelper(sra) {
+  rtl_sar(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(sra);
+}
+
+static inline def_EHelper(srli) {
+  rtl_shri(s, ddest, dsrc1, id_src2->simm);
+  print_asm_template3(srli);
+}
+
+static inline def_EHelper(srai) {
+  rtl_sari(s, ddest, dsrc1, id_src2->simm);
+}
