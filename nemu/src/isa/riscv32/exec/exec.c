@@ -27,14 +27,14 @@ static inline def_EHelper(store) {
 }
 
 static inline def_EHelper(sli) {
-  switch (s->isa.instr.i.simm11_0 & 0xffe0) {
+  switch (s->isa.instr.i.simm11_0 & 0xffffffe0) {
     EX(0b0000000, slli)
     default: exec_inv(s);
   }
 }
 
 static inline def_EHelper(sri) {
-  switch (s->isa.instr.i.simm11_0 & 0xffe0) {
+  switch (s->isa.instr.i.simm11_0 & 0xffffffe0) {
     EX (0b0000000, srli)
     EX (0b0100000, srai)
     default: exec_inv(s);
