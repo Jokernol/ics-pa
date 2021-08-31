@@ -49,6 +49,7 @@ static inline def_EHelper(compute) {
     EX (0b0000001001, mulh)
     EX (0b0000001100, div)
     EX (0b0000001110, rem)
+    EX (0b0000001111, remu)
     EX (0b0000000111, and)
     EX (0b0000000100, xor)
     EX (0b0000000001, sll)
