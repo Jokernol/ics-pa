@@ -117,17 +117,20 @@ void *memcpy(void *dst, const void *src, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  unsigned char *s1_tmp = (unsigned char *)s1;
-  unsigned char *s2_tmp = (unsigned char *)s2;
+  const unsigned char *s1_tmp = (const unsigned char *)s1;
+  const unsigned char *s2_tmp = (const unsigned char *)s2;
 
   size_t i;
 
-  for (i = 0; *s1_tmp && (*s1_tmp == *s2_tmp) && i < n; i++) {
-    ++s1_tmp;
-    ++s2_tmp;
+  for (i = 0; i < n; i++, s1_tmp++, s2_tmp++) {
+    if (*s1_tmp < *s2_tmp) {
+      return -1;
+    } else if (*s1_tmp > *s2_tmp) {
+      return 1;
+    }
   }
 
-  return *s1_tmp - *s2_tmp;
+  return 0;
 }
 
 #endif
