@@ -130,7 +130,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
     }
   }
 
-  return *s1_tmp - *s2_tmp;
+  return 0;
 }
 
 #endif
