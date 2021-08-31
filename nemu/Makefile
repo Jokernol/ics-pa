@@ -92,7 +92,7 @@ override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
 override ARGS += --diff=$(DIFF_REF_SO)
 
 # Command to execute NEMU
-IMG := /home/jokernol/Anything/ics-pa/am-kernels/tests/cpu-tests/build/hello-str-riscv32-nemu.bin
+IMG := /home/jokernol/Anything/ics-pa/am-kernels/tests/cpu-tests/build/string-riscv32-nemu.bin
 NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
 
 $(BINARY): $(OBJS)
