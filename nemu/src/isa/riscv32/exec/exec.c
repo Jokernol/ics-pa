@@ -27,7 +27,7 @@ static inline def_EHelper(store) {
 }
 
 static inline def_EHelper(sli) {
-  switch (s->isa.instr.i.simm11_0 & 0xffffffe0) {
+  switch (s->isa.instr.i.simm11_0 & 0xffe0) {
     EX(0b000000000000, slli)
     default: exec_inv(s);
   }

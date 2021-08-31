@@ -13,7 +13,7 @@ enum flag_itoa {
   BASE_10 = 16,
 };
 
-static void *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags) {
+static void sitoa(char **buf, unsigned int num, int width, enum flag_itoa flags) {
   unsigned int base;
 
   if (flags & BASE_2)
@@ -36,17 +36,17 @@ static void *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags)
   char fill = (flags & FILL_ZERO) ? '0' : ' ';
 
   while (0 <= --width) {
-    *(buf++) = fill;
+    *((*buf)++) = fill;
   }
 
   if (flags & PUT_MINUS) {
-    *(buf++) = '-';
+    *((*buf)++) = '-';
   } else if (flags & PUT_PLUS) {
-    *(buf++) = '+';
+    *((*buf)++) = '+';
   }
 
   do {
-    *(buf++) = *(--p);
+    *((*buf)++) = *(--p);
   } while (tmp < p);
 }
 
@@ -55,47 +55,47 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
+  int int_temp;
   char ch;
-  char *buf = out;
+  char *str_temp;
   const char *save = out;
 
-  while (ch = *(fmt++)) {
+  while ((ch = *(fmt++))) {
     int width = 0;
     enum flag_itoa flags = 0;
 
     if (ch == '%') {
-      redo_spec:
-        switch (ch = *(fmt++)) {
-          case 'd':
-            int num = va_arg(ap, int);
+      switch (ch = *(fmt++)) {
+        case 'd':
+          int_temp = va_arg(ap, int);
 
-            if (num < 0) {
-              num = -num;
-              flags |= PUT_MINUS;
+          if (int_temp < 0) {
+            int_temp = -int_temp;
+            flags |= PUT_MINUS;
+          }
+
+          sitoa(&out, int_temp, width, flags | BASE_10);
+
+          break;
+        case 's':
+          str_temp = va_arg(ap, char *);
+
+          if (str_temp) {
+            while (*str_temp != '\0') {
+              *(out++) = *(str_temp++);
             }
+          }
 
-            sitoa(buf, num, width, flags | BASE_10);
-
-            break;
-          case 's':
-            const char *p = va_arg(ap, const char *);
-
-            if (p) {
-              while (*p != '\0') {
-                *(buf++) = *(p++);
-              }
-            }
-
-            break;
-        }
+          break;
+      }
     } else {
-      *(buf++) = ch;
+      *(out++) = ch;
     }
   }
 
-  *buf = '\0';
+  *out = '\0';
 
-  return buf - save;
+  return out - save;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
