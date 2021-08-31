@@ -58,12 +58,15 @@ int strcmp(const char *s1, const char *s2) {
 int strncmp(const char *s1, const char *s2, size_t n) {
   size_t i;
 
-  for (i = 0; *s1 && (*s1 == *s2) && i < n; i++) {
-    ++s1;
-    ++s2;
+  for (i = 0; i < n; i++, s1++, s2++) {
+    if (*s1 < *s2) {
+      return -1;
+    } else if (*s1 > *s2) {
+      return 1;
+    }
   }
 
-  return *s1 - *s2;
+  return 0;
 }
 
 void *memset(void *v, int c, size_t n) {
