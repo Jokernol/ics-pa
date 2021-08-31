@@ -7,7 +7,7 @@ size_t strlen(const char *s) {
   size_t len = 0;
 
   while (*(s++) != '\0') {
-    len+=1;
+    len += 1;
   }
 
   return len;
@@ -24,7 +24,7 @@ char *strcpy(char *dst, const char *src) {
   return dst;
 }
 
-char* strncpy(char *dst, const char *src, size_t n) {
+char *strncpy(char *dst, const char *src, size_t n) {
   size_t i;
 
   for (i = 0; i < n && src[i] != '\0'; i++)
@@ -35,7 +35,7 @@ char* strncpy(char *dst, const char *src, size_t n) {
   return dst;
 }
 
-char* strcat(char *dst, const char *src) {
+char *strcat(char *dst, const char *src) {
   size_t dest_len = strlen(dst);
   size_t i;
 
@@ -66,12 +66,12 @@ int strncmp(const char *s1, const char *s2, size_t n) {
   return *s1 - *s2;
 }
 
-void* memset(void *v, int c, size_t n) {
+void *memset(void *v, int c, size_t n) {
   if (v == NULL || n < 0) {
     return NULL;
   }
 
-  char *tmp = (char *) v;
+  char *tmp = (char *)v;
 
   while (n-- > 0) {
     *(tmp++) = c;
@@ -80,13 +80,13 @@ void* memset(void *v, int c, size_t n) {
   return v;
 }
 
-void* memmove(void *dst, const void *src, size_t n) {
+void *memmove(void *dst, const void *src, size_t n) {
   if (dst == NULL || src == NULL || n < 0) {
     return NULL;
   }
 
   char tmp[n];
-  char *dst_tmp = (char *) dst;
+  char *dst_tmp = (char *)dst;
   const char *src_tmp = (char *)src;
 
   size_t i;
@@ -101,13 +101,13 @@ void* memmove(void *dst, const void *src, size_t n) {
   return dst;
 }
 
-void* memcpy(void *dst, const void *src, size_t n) {
+void *memcpy(void *dst, const void *src, size_t n) {
   if (dst == NULL || src == NULL || n < 0) {
     return NULL;
   }
 
-  char *dst_tmp = (char *) dst;
-  const char *src_tmp = (char *) src;
+  char *dst_tmp = (char *)dst;
+  const char *src_tmp = (char *)src;
 
   while (n-- > 0) {
     *(dst_tmp++) = *(src_tmp++);
@@ -117,12 +117,12 @@ void* memcpy(void *dst, const void *src, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  unsigned char *s1_tmp = (unsigned char *) s1;
-  unsigned char *s2_tmp = (unsigned char *) s2;
+  unsigned char *s1_tmp = (unsigned char *)s1;
+  unsigned char *s2_tmp = (unsigned char *)s2;
 
   size_t i;
 
- for (i = 0; *s1_tmp && (*s1_tmp == *s2_tmp) && i < n; i++) {
+  for (i = 0; *s1_tmp && (*s1_tmp == *s2_tmp) && i < n; i++) {
     ++s1_tmp;
     ++s2_tmp;
   }
