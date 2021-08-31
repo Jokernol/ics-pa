@@ -13,6 +13,11 @@ static inline def_EHelper(div) {
   print_asm_template3(div);
 }
 
+static inline def_EHelper(divu) {
+  rtl_div_q(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(divu);
+}
+
 static inline def_EHelper(rem) {
   rtl_idiv_r(s, ddest, dsrc1, dsrc2);
   print_asm_template3(rem);
