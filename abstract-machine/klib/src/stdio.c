@@ -111,11 +111,59 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  return 0;
+  va_list ap;
+
+  va_start(ap, fmt);
+
+  int ret = vsnprintf(out, n, fmt, ap);
+
+  va_end(ap);
+
+  return ret;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  return 0;
+  int int_temp;
+  char ch;
+  char *str_temp;
+  const char *save = out;
+
+  while ((ch = *(fmt++)) && ((out - save) < (n - 1))) {
+    int width = 0;
+    enum flag_itoa flags = 0;
+
+    if (ch == '%') {
+      switch (ch = *(fmt++)) {
+        case 'd':
+          int_temp = va_arg(ap, int);
+
+          if (int_temp < 0) {
+            int_temp = -int_temp;
+            flags |= PUT_MINUS;
+          }
+
+          sitoa(&out, int_temp, width, flags | BASE_10);
+
+          break;
+        case 's':
+          str_temp = va_arg(ap, char *);
+
+          if (str_temp) {
+            while ((*str_temp != '\0') && ((out - save) < (n - 1))) {
+              *(out++) = *(str_temp++);
+            }
+          }
+
+          break;
+      }
+    } else {
+      *(out++) = ch;
+    }
+  }
+
+  *out = '\0';
+
+  return out - save;
 }
 
 #endif
