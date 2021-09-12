@@ -51,51 +51,24 @@ static void sitoa(char **buf, unsigned int num, int width, enum flag_itoa flags)
 }
 
 int printf(const char *fmt, ...) {
-  return 0;
+  char *buf = NULL;
+  va_list ap;
+
+  va_start(ap, fmt);
+
+  int ret = vsprintf(buf, fmt, ap);
+
+  va_end(ap);
+
+  while (*buf != '\0') {
+    putch(*(buf++));
+  }
+
+  return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  int int_temp;
-  char ch;
-  char *str_temp;
-  const char *save = out;
-
-  while ((ch = *(fmt++))) {
-    int width = 0;
-    enum flag_itoa flags = 0;
-
-    if (ch == '%') {
-      switch (ch = *(fmt++)) {
-        case 'd':
-          int_temp = va_arg(ap, int);
-
-          if (int_temp < 0) {
-            int_temp = -int_temp;
-            flags |= PUT_MINUS;
-          }
-
-          sitoa(&out, int_temp, width, flags | BASE_10);
-
-          break;
-        case 's':
-          str_temp = va_arg(ap, char *);
-
-          if (str_temp) {
-            while (*str_temp != '\0') {
-              *(out++) = *(str_temp++);
-            }
-          }
-
-          break;
-      }
-    } else {
-      *(out++) = ch;
-    }
-  }
-
-  *out = '\0';
-
-  return out - save;
+  return vsnprintf(out, -1, fmt, ap);
 }
 
 int sprintf(char *out, const char *fmt, ...) {
