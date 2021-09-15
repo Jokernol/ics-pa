@@ -60,9 +60,7 @@ int printf(const char *fmt, ...) {
 
   va_end(ap);
 
-  while (*buf != '\0') {
-    putch(*(buf++));
-  }
+  putstr(buf);
 
   return ret;
 }
