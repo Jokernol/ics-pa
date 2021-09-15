@@ -51,7 +51,7 @@ static void sitoa(char **buf, unsigned int num, int width, enum flag_itoa flags)
 }
 
 int printf(const char *fmt, ...) {
-  char *buf = NULL;
+  char buf[1024];
   va_list ap;
 
   va_start(ap, fmt);
