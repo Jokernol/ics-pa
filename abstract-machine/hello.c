@@ -1,9 +1,7 @@
-#include <am.h>
-#include <klib.h>
-#include <klib-macros.h>
 #include <stdarg.h>
+#include <stdio.h>
 
-#if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
+typedef unsigned long size_t;
 
 enum flag_itoa {
   FILL_ZERO = 1,
@@ -48,23 +46,6 @@ static void sitoa(char **buf, unsigned int num, int width, enum flag_itoa flags)
   do {
     *((*buf)++) = *(--p);
   } while (tmp < p);
-}
-
-int printf(const char *fmt, ...) {
-  char *buf = NULL;
-  va_list ap;
-
-  va_start(ap, fmt);
-
-  int ret = vsprintf(buf, fmt, ap);
-
-  va_end(ap);
-
-  while (*buf != '\0') {
-    putch(*(buf++));
-  }
-
-  return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
@@ -123,62 +104,13 @@ int sprintf(char *out, const char *fmt, ...) {
   return ret;
 }
 
-/***
-int snprintf(char *out, size_t n, const char *fmt, ...) {
-  va_list ap;
+int main(){
+    char a[32] = "Hello";
+    char b[32] = ", world";
+    char c[32];
+    char *str = "Hello, world !";
+    char ntr[256];
+    sprintf(ntr, "%d", 123456);
 
-  va_start(ap, fmt);
-
-  int ret = vsnprintf(out, n, fmt, ap);
-
-  va_end(ap);
-
-  return ret;
+    printf("%s", ntr);
 }
-
-int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  int int_temp;
-  char ch;
-  char *str_temp;
-  const char *save = out;
-
-  while ((ch = *(fmt++)) && ((out - save) < (n - 1))) {
-    int width = 0;
-    enum flag_itoa flags = 0;
-
-    if (ch == '%') {
-      switch (ch = *(fmt++)) {
-        case 'd':
-          int_temp = va_arg(ap, int);
-
-          if (int_temp < 0) {
-            int_temp = -int_temp;
-            flags |= PUT_MINUS;
-          }
-
-          sitoa(&out, int_temp, width, flags | BASE_10);
-
-          break;
-        case 's':
-          str_temp = va_arg(ap, char *);
-
-          if (str_temp) {
-            while ((*str_temp != '\0') && ((out - save) < (n - 1))) {
-              *(out++) = *(str_temp++);
-            }
-          }
-
-          break;
-      }
-    } else {
-      *(out++) = ch;
-    }
-  }
-
-  *out = '\0';
-
-  return out - save;
-}
-***/
-
-#endif
